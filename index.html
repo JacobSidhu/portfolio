@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800;900&family=Rock+Salt&display=swap"
+      rel="stylesheet"
+    >
+    <title>Portfolio</title>
+  </head>
+  <body>
+    <main id="app" aria-label="Portfolio background">
+      <nav class="top-bar" aria-label="Portfolio navigation">
+        <a class="active" href="#home" data-tab="home">Home</a>
+        <a href="#about" data-tab="about">About</a>
+        <a href="#skills" data-tab="skills">Skills</a>
+        <a href="#projects" data-tab="projects">Projects</a>
+        <a href="#certifications" data-tab="certifications">Certifications</a>
+        <a href="#contact" data-tab="contact">Contact</a>
+      </nav>
+
+      <div class="dot-row" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <section class="hero" id="home" data-panel="home" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">
+            <span>Jacob</span>
+            <span>Sidhu</span>
+          </h1>
+          <p class="hero-intro">
+            Hi, I'm <strong>Jacob Masih</strong><br>
+            Software Engineer &amp; Aspiring AWS Cloud Architect<br>
+            I design and build secure, scalable cloud solutions using AWS,<br>
+            Terraform, Docker and Node.js.
+          </p>
+
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="#projects">View Projects</a>
+            <a class="button secondary" href="#contact" data-tab-trigger="contact">Contact Me</a>
+          </div>
+
+          <div class="social-links" aria-label="Social links">
+            <a href="https://github.com/jacobsidhu" target="_blank" rel="noreferrer">
+              <img class="social-icon" src="/assets/github-icon.png" alt="" aria-hidden="true">
+              <span>Github</span>
+            </a>
+            <a href="https://www.linkedin.com/in/jacobsidhu" target="_blank" rel="noreferrer">
+              <img class="social-icon" src="/assets/linkedin-icon.png" alt="" aria-hidden="true">
+              <span>LinkedIn</span>
+            </a>
+            <a class="resume-download-link" href="/assets/resume.pdf" download>
+              <span class="social-icon resume-download-icon" aria-hidden="true"></span>
+              <span>Resume Download</span>
+            </a>
+          </div>
+        </div>
+
+        <figure class="profile-frame">
+          <img src="/assets/profile-light-blue-shirt.png" alt="Jacob Sidhu">
+        </figure>
+      </section>
+
+      <section class="about-page is-hidden" id="about" data-panel="about" aria-labelledby="about-title">
+        <article class="about-intro-card">
+          <p class="about-kicker">About Me</p>
+          <h2 id="about-title">Building practical cloud systems with AWS, code, and automation.</h2>
+          <p>
+            I’m Jacob Masih, a software engineer focused on secure, scalable,
+            and maintainable cloud-based systems. My work is centered around AWS,
+            backend development, infrastructure as code, and deployment automation.
+          </p>
+          <p>
+            I learn by building real projects: a serverless portfolio platform,
+            a real-time AWS data pipeline, and a distributed quiz platform deployed
+            with Terraform, EC2, Docker Compose, and CI/CD workflows.
+          </p>
+        </article>
+
+        <div class="about-focus-grid" aria-label="About focus areas">
+          <article>
+            <h3>Cloud Engineering</h3>
+            <p>AWS services, serverless workflows, networking basics, and practical architecture decisions.</p>
+          </article>
+          <article>
+            <h3>Infrastructure as Code</h3>
+            <p>Terraform-based provisioning, repeatable environments, and clear deployment documentation.</p>
+          </article>
+          <article>
+            <h3>Backend Development</h3>
+            <p>Node.js, Express, APIs, data flow, and service boundaries that are easy to understand.</p>
+          </article>
+          <article>
+            <h3>DevOps &amp; Automation</h3>
+            <p>Docker, GitHub Actions, Linux deployment, CI/CD checks, and operational readiness.</p>
+          </article>
+        </div>
+
+        <aside class="about-direction-card">
+          <h3>Current Direction</h3>
+          <p>
+            I’m targeting opportunities in cloud engineering, AWS solutions
+            architecture, backend development, and DevOps-focused roles.
+          </p>
+        </aside>
+      </section>
+
+      <section class="skills-page is-hidden" id="skills" data-panel="skills" aria-labelledby="skills-title">
+        <header class="skills-header">
+          <h2 id="skills-title">Skills <span>&amp;</span> Expertises</h2>
+          <p>
+            Technologies, frameworks and tools i use to design, build, deploy, and
+            manage scalable, secure and reliable cloud solutions.
+          </p>
+        </header>
+
+        <div class="skills-groups" aria-label="Skill categories">
+          <section class="skill-group" aria-labelledby="aws-cloud-skills-title">
+            <div class="skill-divider">
+              <span aria-hidden="true"></span>
+              <h3 id="aws-cloud-skills-title">AWS Cloud</h3>
+              <span aria-hidden="true"></span>
+            </div>
+            <div class="skill-row-shell">
+              <button class="skill-row-control previous" type="button" aria-label="Scroll AWS skills left" data-skill-scroll="previous"></button>
+              <div class="skill-card-row">
+                <a class="skill-card" href="https://aws.amazon.com/ec2/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-ec2.png" alt="" aria-hidden="true">
+                  <p>EC2</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/s3/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-s3.png" alt="" aria-hidden="true">
+                  <p>S3</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/iam/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-iam.png" alt="" aria-hidden="true">
+                  <p>IAM</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/vpc/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-vpc.png" alt="" aria-hidden="true">
+                  <p>VPC</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/dynamodb/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-dynamodb.png" alt="" aria-hidden="true">
+                  <p>DynamoDB</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/rds/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-rds.png" alt="" aria-hidden="true">
+                  <p>RDS</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/rds/aurora/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-aurora.png" alt="" aria-hidden="true">
+                  <p>Aurora</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/lambda/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-lambda.png" alt="" aria-hidden="true">
+                  <p>Lambda</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/eks/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-eks.png" alt="" aria-hidden="true">
+                  <p>EKS</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/ecr/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-ecr.png" alt="" aria-hidden="true">
+                  <p>ECR</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/ecs/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-ecs.png" alt="" aria-hidden="true">
+                  <p>ECS</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/fargate/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-fargate.png" alt="" aria-hidden="true">
+                  <p>Fargate</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/api-gateway/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-api-gateway.png" alt="" aria-hidden="true">
+                  <p>API GW</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/route53/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-route-53.png" alt="" aria-hidden="true">
+                  <p>Route 53</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/sns/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-sns.png" alt="" aria-hidden="true">
+                  <p>SNS</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/eventbridge/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-eventbridge.png" alt="" aria-hidden="true">
+                  <p>EventBridge</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/sqs/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-sqs.png" alt="" aria-hidden="true">
+                  <p>SQS</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/cloudfront/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-cloudfront.png" alt="" aria-hidden="true">
+                  <p>CloudFront</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/cloudwatch/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-cloudwatch.png" alt="" aria-hidden="true">
+                  <p>CloudWatch</p>
+                </a>
+              </div>
+              <button class="skill-row-control next" type="button" aria-label="Scroll AWS skills right" data-skill-scroll="next"></button>
+            </div>
+          </section>
+
+          <section class="skill-group" aria-labelledby="iac-skills-title">
+            <div class="skill-divider">
+              <span aria-hidden="true"></span>
+              <h3 id="iac-skills-title">Infrastructure as Code &amp; Automation</h3>
+              <span aria-hidden="true"></span>
+            </div>
+            <div class="skill-row-shell">
+              <button class="skill-row-control previous" type="button" aria-label="Scroll infrastructure skills left" data-skill-scroll="previous"></button>
+              <div class="skill-card-row">
+                <a class="skill-card" href="https://developer.hashicorp.com/terraform" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/terraform.png" alt="" aria-hidden="true">
+                  <p>Terraform</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/cloudformation/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/aws-cloudformation.png" alt="" aria-hidden="true">
+                  <p>AWS CloudFormation</p>
+                </a>
+                <a class="skill-card" href="https://yaml.org/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/yaml.png" alt="" aria-hidden="true">
+                  <p>YAML</p>
+                </a>
+                <a class="skill-card" href="https://www.gnu.org/software/bash/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/terminal.png" alt="" aria-hidden="true">
+                  <p>Bash</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/cli/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/cloud-shell.png" alt="" aria-hidden="true">
+                  <p>AWS CLI</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/what-is/iac/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/infrastructure-as-code.png" alt="" aria-hidden="true">
+                  <p>Infrastructure as Code</p>
+                </a>
+              </div>
+              <button class="skill-row-control next" type="button" aria-label="Scroll infrastructure skills right" data-skill-scroll="next"></button>
+            </div>
+          </section>
+
+          <section class="skill-group" aria-labelledby="containers-devops-skills-title">
+            <div class="skill-divider">
+              <span aria-hidden="true"></span>
+              <h3 id="containers-devops-skills-title">Containers &amp; DevOps</h3>
+              <span aria-hidden="true"></span>
+            </div>
+            <div class="skill-row-shell">
+              <button class="skill-row-control previous" type="button" aria-label="Scroll tool skills left" data-skill-scroll="previous"></button>
+              <div class="skill-card-row">
+                <a class="skill-card" href="https://www.docker.com/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/docker.png" alt="" aria-hidden="true">
+                  <p>Docker</p>
+                </a>
+                <a class="skill-card" href="https://kubernetes.io/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/kubernetes.png" alt="" aria-hidden="true">
+                  <p>Kubernetes</p>
+                </a>
+                <a class="skill-card" href="https://git-scm.com/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/git.png" alt="" aria-hidden="true">
+                  <p>Git</p>
+                </a>
+                <a class="skill-card" href="https://docs.github.com/actions" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/github-actions.png" alt="" aria-hidden="true">
+                  <p>GitHub Actions</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/devops/continuous-integration/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/ci-cd.png" alt="" aria-hidden="true">
+                  <p>CI/CD</p>
+                </a>
+                <a class="skill-card" href="https://github.com/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/github.png" alt="" aria-hidden="true">
+                  <p>GitHub</p>
+                </a>
+                <a class="skill-card" href="https://www.kernel.org/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/iac-and-devops/linux.png" alt="" aria-hidden="true">
+                  <p>Linux</p>
+                </a>
+              </div>
+              <button class="skill-row-control next" type="button" aria-label="Scroll tool skills right" data-skill-scroll="next"></button>
+            </div>
+          </section>
+
+          <section class="skill-group" aria-labelledby="architecture-skills-title">
+            <div class="skill-divider">
+              <span aria-hidden="true"></span>
+              <h3 id="architecture-skills-title">Architecture &amp; Distributed Systems</h3>
+              <span aria-hidden="true"></span>
+            </div>
+            <div class="skill-row-shell">
+              <button class="skill-row-control previous" type="button" aria-label="Scroll architecture skills left" data-skill-scroll="previous"></button>
+              <div class="skill-card-row">
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/architecture-distributed-systems/distributed-systems.png" alt="" aria-hidden="true"><p>Distributed Systems</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/architecture-distributed-systems/microservices.png" alt="" aria-hidden="true"><p>Microservices</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/architecture-distributed-systems/event-driven-architecture.png" alt="" aria-hidden="true"><p>Event-Driven Architecture</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/architecture-distributed-systems/serverless.png" alt="" aria-hidden="true"><p>Serverless</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/architecture-distributed-systems/rest-apis.png" alt="" aria-hidden="true"><p>REST APIs</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/architecture-distributed-systems/message-queues.png" alt="" aria-hidden="true"><p>Message Queues</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/architecture-distributed-systems/caching.png" alt="" aria-hidden="true"><p>Caching</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/architecture-distributed-systems/high-availability.png" alt="" aria-hidden="true"><p>High Availability</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/architecture-distributed-systems/fault-tolerance.png" alt="" aria-hidden="true"><p>Fault Tolerance</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/architecture-distributed-systems/scalability.png" alt="" aria-hidden="true"><p>Scalability</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/architecture-distributed-systems/load-balancing.png" alt="" aria-hidden="true"><p>Load Balancing</p></article>
+              </div>
+              <button class="skill-row-control next" type="button" aria-label="Scroll architecture skills right" data-skill-scroll="next"></button>
+            </div>
+          </section>
+
+          <section class="skill-group" aria-labelledby="networking-skills-title">
+            <div class="skill-divider">
+              <span aria-hidden="true"></span>
+              <h3 id="networking-skills-title">Networking</h3>
+              <span aria-hidden="true"></span>
+            </div>
+            <div class="skill-row-shell">
+              <button class="skill-row-control previous" type="button" aria-label="Scroll networking skills left" data-skill-scroll="previous"></button>
+              <div class="skill-card-row">
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/networking/tcp-ip.png" alt="" aria-hidden="true"><p>TCP/IP</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/networking/dns.png" alt="" aria-hidden="true"><p>DNS</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/networking/http-https.png" alt="" aria-hidden="true"><p>HTTP/HTTPS</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/networking/cidr.png" alt="" aria-hidden="true"><p>CIDR</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/networking/subnetting.png" alt="" aria-hidden="true"><p>Subnetting</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/networking/routing.png" alt="" aria-hidden="true"><p>Routing</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/networking/nat.png" alt="" aria-hidden="true"><p>NAT</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/networking/security-groups.png" alt="" aria-hidden="true"><p>Security Groups</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/networking/load-balancing.png" alt="" aria-hidden="true"><p>Load Balancing</p></article>
+                <a class="skill-card" href="https://aws.amazon.com/cloudfront/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-cloudfront.png" alt="" aria-hidden="true">
+                  <p>CDN</p>
+                </a>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/networking/vpc-peering.png" alt="" aria-hidden="true"><p>VPC Peering</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/networking/vpc-endpoints.png" alt="" aria-hidden="true"><p>VPC Endpoints</p></article>
+              </div>
+              <button class="skill-row-control next" type="button" aria-label="Scroll networking skills right" data-skill-scroll="next"></button>
+            </div>
+          </section>
+
+          <section class="skill-group" aria-labelledby="database-skills-title">
+            <div class="skill-divider">
+              <span aria-hidden="true"></span>
+              <h3 id="database-skills-title">Databases &amp; Data</h3>
+              <span aria-hidden="true"></span>
+            </div>
+            <div class="skill-row-shell">
+              <button class="skill-row-control previous" type="button" aria-label="Scroll database skills left" data-skill-scroll="previous"></button>
+              <div class="skill-card-row">
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/databases-data/postgresql.png" alt="" aria-hidden="true"><p>PostgreSQL</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/databases-data/mysql.png" alt="" aria-hidden="true"><p>MySQL</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/databases-data/sql.png" alt="" aria-hidden="true"><p>SQL</p></article>
+                <a class="skill-card" href="https://aws.amazon.com/rds/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-rds.png" alt="" aria-hidden="true">
+                  <p>Amazon RDS</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/rds/aurora/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-aurora.png" alt="" aria-hidden="true">
+                  <p>Aurora</p>
+                </a>
+                <a class="skill-card" href="https://aws.amazon.com/dynamodb/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-dynamodb.png" alt="" aria-hidden="true">
+                  <p>DynamoDB</p>
+                </a>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/databases-data/redis-elasticache.png" alt="" aria-hidden="true"><p>Redis/ElastiCache</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/databases-data/nosql.png" alt="" aria-hidden="true"><p>NoSQL</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/databases-data/database-design.png" alt="" aria-hidden="true"><p>Database Design</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/databases-data/data-modelling.png" alt="" aria-hidden="true"><p>Data Modelling</p></article>
+              </div>
+              <button class="skill-row-control next" type="button" aria-label="Scroll database skills right" data-skill-scroll="next"></button>
+            </div>
+          </section>
+
+          <section class="skill-group" aria-labelledby="software-skills-title">
+            <div class="skill-divider">
+              <span aria-hidden="true"></span>
+              <h3 id="software-skills-title">Software Development</h3>
+              <span aria-hidden="true"></span>
+            </div>
+            <div class="skill-row-shell">
+              <button class="skill-row-control previous" type="button" aria-label="Scroll software development skills left" data-skill-scroll="previous"></button>
+              <div class="skill-card-row">
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/software-development/javascript.png" alt="" aria-hidden="true"><p>JavaScript</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/software-development/nodejs.png" alt="" aria-hidden="true"><p>Node.js</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/software-development/expressjs.png" alt="" aria-hidden="true"><p>Express.js</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/software-development/python.png" alt="" aria-hidden="true"><p>Python</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/software-development/rest-api-development.png" alt="" aria-hidden="true"><p>REST API Development</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/software-development/backend-development.png" alt="" aria-hidden="true"><p>Backend Development</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/software-development/oop.png" alt="" aria-hidden="true"><p>OOP</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/software-development/data-structures.png" alt="" aria-hidden="true"><p>Data Structures</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/software-development/algorithms.png" alt="" aria-hidden="true"><p>Algorithms</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/software-development/testing.png" alt="" aria-hidden="true"><p>Testing</p></article>
+              </div>
+              <button class="skill-row-control next" type="button" aria-label="Scroll software development skills right" data-skill-scroll="next"></button>
+            </div>
+          </section>
+
+          <section class="skill-group" aria-labelledby="security-skills-title">
+            <div class="skill-divider">
+              <span aria-hidden="true"></span>
+              <h3 id="security-skills-title">Security</h3>
+              <span aria-hidden="true"></span>
+            </div>
+            <div class="skill-row-shell">
+              <button class="skill-row-control previous" type="button" aria-label="Scroll security skills left" data-skill-scroll="previous"></button>
+              <div class="skill-card-row">
+                <a class="skill-card" href="https://aws.amazon.com/iam/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-iam.png" alt="" aria-hidden="true">
+                  <p>IAM</p>
+                </a>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/security/least-privilege.png" alt="" aria-hidden="true"><p>Least Privilege</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/security/kms.png" alt="" aria-hidden="true"><p>KMS</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/security/secrets-manager.png" alt="" aria-hidden="true"><p>Secrets Manager</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/security/authentication.png" alt="" aria-hidden="true"><p>Authentication</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/security/authorization.png" alt="" aria-hidden="true"><p>Authorization</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/security/encryption.png" alt="" aria-hidden="true"><p>Encryption</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/security/tls-ssl.png" alt="" aria-hidden="true"><p>TLS/SSL</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/security/network-security.png" alt="" aria-hidden="true"><p>Network Security</p></article>
+              </div>
+              <button class="skill-row-control next" type="button" aria-label="Scroll security skills right" data-skill-scroll="next"></button>
+            </div>
+          </section>
+
+          <section class="skill-group" aria-labelledby="monitoring-skills-title">
+            <div class="skill-divider">
+              <span aria-hidden="true"></span>
+              <h3 id="monitoring-skills-title">Monitoring &amp; Observability</h3>
+              <span aria-hidden="true"></span>
+            </div>
+            <div class="skill-row-shell">
+              <button class="skill-row-control previous" type="button" aria-label="Scroll monitoring skills left" data-skill-scroll="previous"></button>
+              <div class="skill-card-row">
+                <a class="skill-card" href="https://aws.amazon.com/cloudwatch/" target="_blank" rel="noreferrer">
+                  <img class="skill-logo" src="/assets/skill-set-logos/cloud-and-aws/aws-cloudwatch.png" alt="" aria-hidden="true">
+                  <p>CloudWatch</p>
+                </a>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/monitoring-observability/cloudtrail.png" alt="" aria-hidden="true"><p>CloudTrail</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/monitoring-observability/aws-config.png" alt="" aria-hidden="true"><p>AWS Config</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/monitoring-observability/logging.png" alt="" aria-hidden="true"><p>Logging</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/monitoring-observability/metrics.png" alt="" aria-hidden="true"><p>Metrics</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/monitoring-observability/alerting.png" alt="" aria-hidden="true"><p>Alerting</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/monitoring-observability/health-checks.png" alt="" aria-hidden="true"><p>Health Checks</p></article>
+                <article class="skill-card"><img class="skill-logo" src="/assets/skill-set-logos/monitoring-observability/troubleshooting.png" alt="" aria-hidden="true"><p>Troubleshooting</p></article>
+              </div>
+              <button class="skill-row-control next" type="button" aria-label="Scroll monitoring skills right" data-skill-scroll="next"></button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="projects-page is-hidden" id="projects" data-panel="projects" aria-labelledby="projects-title">
+        <div class="project-list-page" data-project-list-page>
+          <header class="projects-header">
+            <h2 id="projects-title">Projects</h2>
+            <p>
+              Selected cloud and software builds focused on practical architecture,
+              automation, deployment, and maintainable engineering.
+            </p>
+          </header>
+
+          <div class="project-list" aria-label="Project highlights">
+            <article class="project-card">
+            <figure class="project-media">
+              <button type="button" data-project-image-open aria-label="View Serverless portfolio architecture diagram">
+                <img src="/assets/project-serverless-portfolio-architecture.png" alt="Serverless portfolio architecture diagram">
+              </button>
+            </figure>
+            <div class="project-copy">
+              <p class="project-kicker">AWS Cloud</p>
+              <h3>AWS Serverless Portfolio</h3>
+              <p>
+                Static portfolio hosting with a serverless contact flow using
+                S3, API Gateway, Lambda, and message notifications.
+              </p>
+              <div class="project-tags" aria-label="Project technologies">
+                <span>S3</span>
+                <span>API Gateway</span>
+                <span>Lambda</span>
+                <span>SNS</span>
+              </div>
+              <div class="project-actions">
+                <a class="button secondary" href="https://github.com/jacobsidhu" target="_blank" rel="noreferrer">Open GitHub</a>
+                <button
+                  class="button primary"
+                  type="button"
+                  data-project-detail-open
+                  data-project-title="AWS Serverless Portfolio"
+                >
+                  Explore Project
+                </button>
+              </div>
+            </div>
+            </article>
+
+            <article class="project-card">
+            <figure class="project-media">
+              <button type="button" data-project-image-open aria-label="View QuizX AWS architecture diagram">
+                <img src="/assets/project-quizx-aws-v1-architecture.png" alt="QuizX AWS distributed system architecture diagram">
+              </button>
+            </figure>
+            <div class="project-copy">
+              <p class="project-kicker">AWS Distributed System</p>
+              <h3>QuizX AWS Distributed System</h3>
+              <p>
+                Cloud-hosted multiple-choice question platform deployed with
+                Terraform, EC2, Docker Compose, and GitHub Actions.
+              </p>
+              <div class="project-tags" aria-label="Project technologies">
+                <span>Terraform</span>
+                <span>EC2</span>
+                <span>GitHub Actions</span>
+                <span>Docker</span>
+              </div>
+              <div class="project-actions">
+                <a class="button secondary" href="https://github.com/JacobSidhu/quizx-aws-distributed-system" target="_blank" rel="noreferrer">Open GitHub</a>
+                <button
+                  class="button primary"
+                  type="button"
+                  data-project-detail-open
+                  data-project-key="quizx-aws-distributed-system"
+                  data-project-title="QuizX AWS Distributed System"
+                >
+                  Explore Project
+                </button>
+              </div>
+            </div>
+            </article>
+
+            <article class="project-card">
+            <figure class="project-media">
+              <button type="button" data-project-image-open aria-label="View real-time data management architecture diagram">
+                <img src="/assets/project-realtime-data-management-architecture.png" alt="Real-time data management architecture diagram">
+              </button>
+            </figure>
+            <div class="project-copy">
+              <p class="project-kicker">AWS Streaming</p>
+              <h3>Real-time Data Management Service</h3>
+              <p>
+                Serverless data pipeline using Lambda producers, Kinesis Data
+                Streams, Lambda consumers, DynamoDB, and CloudWatch monitoring.
+              </p>
+              <div class="project-tags" aria-label="Project technologies">
+                <span>Kinesis</span>
+                <span>Lambda</span>
+                <span>DynamoDB</span>
+                <span>CloudWatch</span>
+              </div>
+              <div class="project-actions">
+                <a class="button secondary" href="https://github.com/JacobSidhu/real-time-data-management-service" target="_blank" rel="noreferrer">Open GitHub</a>
+                <button
+                  class="button primary"
+                  type="button"
+                  data-project-detail-open
+                  data-project-key="realtime-data-management"
+                  data-project-title="Real-time Data Management Service"
+                >
+                  Explore Project
+                </button>
+              </div>
+            </div>
+            </article>
+
+            <article class="project-card">
+            <figure class="project-media">
+              <button type="button" data-project-image-open aria-label="View Container Deployment Workflow image">
+                <img src="/assets/project-leblancs-law-wallpaper.png" alt="LeBlanc's Law project placeholder">
+              </button>
+            </figure>
+            <div class="project-copy">
+              <p class="project-kicker">DevOps</p>
+              <h3>Container Deployment Workflow</h3>
+              <p>
+                CI/CD sample for building container images, validating changes,
+                and preparing repeatable deployments into a cloud environment.
+              </p>
+              <div class="project-tags" aria-label="Project technologies">
+                <span>Docker</span>
+                <span>GitHub Actions</span>
+                <span>ECR</span>
+                <span>ECS</span>
+              </div>
+              <div class="project-actions">
+                <a class="button secondary" href="https://github.com/jacobsidhu" target="_blank" rel="noreferrer">Open GitHub</a>
+                <button
+                  class="button primary"
+                  type="button"
+                  data-project-detail-open
+                  data-project-title="Container Deployment Workflow"
+                >
+                  Explore Project
+                </button>
+              </div>
+            </div>
+            </article>
+          </div>
+        </div>
+
+        <article class="project-detail-page" data-project-detail-page tabindex="-1" hidden>
+          <button class="project-detail-close" type="button" aria-label="Back to projects" data-project-detail-close></button>
+          <h2 data-project-detail-title>Project Name Here here</h2>
+
+          <div class="project-detail-layout">
+            <article class="project-detail-content" data-project-detail-content>
+              <section data-project-panel="overview">
+                <h3>Overview</h3>
+                <div class="project-panel-copy" data-project-panel-copy>
+                  This project demonstrates a practical cloud build with a clear
+                  architecture, deployment workflow, and production-minded decisions.
+                </div>
+              </section>
+              <section data-project-panel="architecture" hidden>
+                <h3>Architecture</h3>
+                <figure class="project-architecture-figure" data-project-architecture-figure hidden>
+                  <button type="button" data-project-image-open aria-label="View project architecture diagram">
+                    <img data-project-architecture-image src="" alt="">
+                  </button>
+                </figure>
+                <div class="project-panel-copy" data-project-panel-copy>
+                  The architecture view explains the key services, traffic flow,
+                  integration points, and operational boundaries of the project.
+                </div>
+              </section>
+              <section data-project-panel="decision" hidden>
+                <h3>Design Decision</h3>
+                <div class="project-panel-copy" data-project-panel-copy>
+                  Design decisions focus on cost, maintainability, security,
+                  scalability, and keeping the implementation simple enough to operate.
+                </div>
+              </section>
+              <section data-project-panel="repo" hidden>
+                <h3>GitHub repo</h3>
+                <div class="project-panel-copy" data-project-panel-copy>
+                  Repository details, source structure, deployment notes, and future
+                  links will live here when the project repo is finalized.
+                </div>
+              </section>
+              <section data-project-panel="learning" hidden>
+                <h3>Learning</h3>
+                <div class="project-panel-copy" data-project-panel-copy>
+                  Key lessons, tradeoffs, blockers, and improvements discovered while
+                  building this project will be documented here.
+                </div>
+              </section>
+            </article>
+
+            <aside class="project-detail-menu" aria-label="Project detail sections">
+              <button class="active" type="button" data-project-detail-tab="overview">Overview</button>
+              <button type="button" data-project-detail-tab="architecture">Architecture</button>
+              <button type="button" data-project-detail-tab="decision">Design Decision</button>
+              <button type="button" data-project-detail-tab="repo">GitHub repo</button>
+              <button type="button" data-project-detail-tab="learning">Learning</button>
+              <select aria-label="Project version" data-project-version-select>
+                <option value="v1">Version 1.0.0</option>
+              </select>
+            </aside>
+          </div>
+        </article>
+      </section>
+
+      <section class="certifications-page is-hidden" id="certifications" data-panel="certifications" aria-labelledby="certifications-title">
+        <header class="certifications-header">
+          <div class="certifications-header-copy">
+            <h2 id="certifications-title">Certifications</h2>
+            <p>
+              Cloud, DevOps, and infrastructure credentials that validate practical
+              architecture, automation, and delivery skills.
+            </p>
+          </div>
+          <div class="certification-segmented-control" role="tablist" aria-label="Certification status">
+            <button class="active" type="button" role="tab" aria-selected="true" data-certification-view-trigger="credited">Credited</button>
+            <button type="button" role="tab" aria-selected="false" data-certification-view-trigger="learning">Learning</button>
+          </div>
+        </header>
+
+        <div class="certification-grid" aria-label="Certification highlights" data-certification-view="credited">
+          <article class="certification-card">
+            <figure class="certification-badge">
+              <img src="/assets/cert-terraform-associate-cropped.png" alt="Terraform Certified Associate badge">
+            </figure>
+            <div class="certification-copy">
+              <h3>Terraform Associate</h3>
+              <p>Certified on May 2026</p>
+              <button type="button" data-cert-dialog-open>View Cert.</button>
+            </div>
+          </article>
+
+          <article class="certification-card">
+            <figure class="certification-badge">
+              <img src="/assets/cert-terraform-associate-cropped.png" alt="Terraform Certified Associate badge">
+            </figure>
+            <div class="certification-copy">
+              <h3>Terraform Associate</h3>
+              <p>Certified on May 2026</p>
+              <button type="button" data-cert-dialog-open>View Cert.</button>
+            </div>
+          </article>
+
+          <article class="certification-card">
+            <figure class="certification-badge">
+              <img src="/assets/cert-terraform-associate-cropped.png" alt="Terraform Certified Associate badge">
+            </figure>
+            <div class="certification-copy">
+              <h3>Terraform Associate</h3>
+              <p>Certified on May 2026</p>
+              <button type="button" data-cert-dialog-open>View Cert.</button>
+            </div>
+          </article>
+
+          <article class="certification-card">
+            <figure class="certification-badge certification-badge-large">
+              <img src="/assets/cert-aws-cloud-practitioner.png" alt="AWS Certified Cloud Practitioner badge">
+            </figure>
+            <div class="certification-copy">
+              <h3>AWS Cloud Practitioner</h3>
+              <p>Foundational certification</p>
+              <button
+                type="button"
+                data-cert-dialog-open
+                data-cert-image="/assets/cert-aws-cloud-practitioner.png"
+                data-cert-alt="AWS Certified Cloud Practitioner badge"
+              >
+                View Cert.
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <div class="certification-learning-list" data-certification-view="learning" hidden>
+          <article class="learning-certification-card">
+            <button
+              class="learning-certification-media"
+              type="button"
+              data-cert-dialog-open
+              data-cert-image="/assets/learning-aws-security-fundamentals.jpeg"
+              data-cert-alt="AWS Security Fundamentals completion certificate"
+              aria-label="View AWS Security Fundamentals certificate"
+            >
+              <img src="/assets/learning-aws-security-fundamentals.jpeg" alt="AWS Security Fundamentals completion certificate">
+            </button>
+            <div class="learning-certification-copy">
+              <h3>AWS Security Fundamentals</h3>
+              <p>
+                AWS Training and Certification course covering the AWS shared
+                responsibility model, access control, visibility, and practical
+                security fundamentals for cloud workloads.
+              </p>
+            </div>
+            <p class="learning-certification-date">Completed on July 26, 2026</p>
+          </article>
+
+          <article class="learning-certification-card">
+            <button
+              class="learning-certification-media"
+              type="button"
+              data-cert-dialog-open
+              data-cert-image="/assets/learning-aws-cloud-practitioner-practice.jpeg"
+              data-cert-alt="Official Practice Question Set AWS Certified Cloud Practitioner completion certificate"
+              aria-label="View AWS Cloud Practitioner practice question set certificate"
+            >
+              <img src="/assets/learning-aws-cloud-practitioner-practice.jpeg" alt="Official Practice Question Set AWS Certified Cloud Practitioner completion certificate">
+            </button>
+            <div class="learning-certification-copy">
+              <h3>Official Practice Question Set: AWS Certified Cloud Practitioner</h3>
+              <p>
+                AWS Training and Certification practice question set for CLF-C02,
+                focused on exam readiness, AWS service awareness, cloud concepts,
+                security, pricing, and support foundations.
+              </p>
+            </div>
+            <p class="learning-certification-date">Completed on August 04, 2026</p>
+          </article>
+
+          <article class="learning-certification-card">
+            <button
+              class="learning-certification-media"
+              type="button"
+              data-cert-dialog-open
+              data-cert-image="/assets/learning-simplilearn-aws-solutions-architect.png"
+              data-cert-alt="Simplilearn AWS Solutions Architect Associate Level certificate"
+              aria-label="View AWS Solutions Architect Associate Level certificate"
+            >
+              <img src="/assets/learning-simplilearn-aws-solutions-architect.png" alt="Simplilearn AWS Solutions Architect Associate Level certificate">
+            </button>
+            <div class="learning-certification-copy">
+              <h3>AWS Solutions Architect Associate Level</h3>
+              <p>
+                Simplilearn certificate of achievement for completing AWS Solutions
+                Architect Associate Level training, including project and test
+                completion.
+              </p>
+            </div>
+            <p class="learning-certification-date">Completed on July 04, 2026</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact-page is-hidden" id="contact" data-panel="contact" aria-labelledby="contact-title">
+        <form class="contact-form">
+          <h2 id="contact-title">Let's Connect</h2>
+          <p>
+            I'm open to junior cloud engineer, AWS Solutions Architect and
+            software Engineer opportunities. If you'd like to discuss a role,
+            project or collaboration, feel free to contact me.
+          </p>
+
+          <div class="field-grid">
+            <label>
+              <span>Name</span>
+              <input type="text" name="name" placeholder="Your name">
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="your.email@example.com">
+            </label>
+          </div>
+
+          <label>
+            <span>Subject</span>
+            <input type="text" name="subject" placeholder="Project, role, or collaboration">
+          </label>
+
+          <label>
+            <span>Message</span>
+            <textarea name="message" placeholder="Tell me what you would like to discuss"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button class="clear-button" type="reset">Clear</button>
+            <button class="send-button" type="submit">Send Message</button>
+          </div>
+        </form>
+
+        <aside class="contact-card" aria-label="Contact details">
+          <h2>Contacts</h2>
+          <ul>
+            <li>
+              <img src="/assets/icon-email.png" alt="" aria-hidden="true">
+              <span>Jacobsidhu@hotmail.com</span>
+            </li>
+            <li>
+              <img src="/assets/icon-email.png" alt="" aria-hidden="true">
+              <span>Jacobsidhu@lecux.com</span>
+            </li>
+            <li>
+              <img src="/assets/icon-phone-outline.svg" alt="" aria-hidden="true">
+              <span>+44 07767 90005</span>
+            </li>
+            <li>
+              <img src="/assets/icon-whatsapp-outline.svg" alt="" aria-hidden="true">
+              <span>@jacobsidhu</span>
+            </li>
+          </ul>
+          <p class="availability-label">
+            <img src="/assets/icon-availability.png" alt="" aria-hidden="true">
+            <span>Availability: Open for opportunities.</span>
+          </p>
+          <p class="location-label">
+            <img src="/assets/icon-location-outline.svg" alt="" aria-hidden="true">
+            <span>Location</span>
+          </p>
+          <a
+            class="map-link"
+            href="https://maps.apple.com/?q=Preston%2C%20United%20Kingdom"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Open Preston, United Kingdom in Apple Maps"
+          >
+            <img class="map-image" src="/assets/contact-map.png" alt="Map of Preston, United Kingdom">
+          </a>
+          <p>Preston, United Kingdom.</p>
+        </aside>
+      </section>
+
+      <div class="certificate-dialog" data-cert-dialog hidden>
+        <div class="certificate-backdrop" data-cert-dialog-close></div>
+        <section class="certificate-modal" role="dialog" aria-modal="true" aria-label="Terraform Associate certificate preview" tabindex="-1">
+          <button class="certificate-close" type="button" aria-label="Close certificate preview" data-cert-dialog-close></button>
+          <img data-cert-preview src="/assets/cert-terraform-associate-full.png" alt="Terraform Associate certificate">
+        </section>
+      </div>
+
+      <div class="image-dialog" data-project-image-dialog hidden>
+        <div class="certificate-backdrop" data-project-image-close></div>
+        <section class="certificate-modal image-modal" role="dialog" aria-modal="true" aria-label="Project image preview" tabindex="-1">
+          <button class="certificate-close" type="button" aria-label="Close project image preview" data-project-image-close></button>
+          <img data-project-image-preview src="" alt="">
+        </section>
+      </div>
+
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

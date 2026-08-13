@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.vite/
+
+.env
+.env.*
+
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+
+.tmp-*/
+*.log
