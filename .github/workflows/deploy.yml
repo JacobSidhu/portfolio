@@ -51,3 +51,7 @@ jobs:
         working-directory: infra/terraform
         run: terraform validate
 
+      - name: Plan Terraform
+        working-directory: infra/terraform
+        run: terraform plan -out=tfplan
+
