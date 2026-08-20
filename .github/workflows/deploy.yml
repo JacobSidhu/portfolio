@@ -54,6 +54,6 @@ jobs:
       - name: Plan Terraform
         working-directory: infra/terraform
         env:
-          TF_VAR_aws_access_key_id: ${{ vars.PORTFOLIO_BUCKET_NAME }}
-        run: terraform plan -out=tfplan
+          TF_VAR_portfolio_bucket_name: ${{ vars.PORTFOLIO_BUCKET_NAME }}
+        run: terraform plan -input=false -out=tfplan
 
