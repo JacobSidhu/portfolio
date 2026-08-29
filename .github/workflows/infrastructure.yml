@@ -39,6 +39,12 @@ jobs:
         if: github.event.inputs.action == 'apply'
         run: npm ci
 
+      - name: Check contact API URL
+        if: github.event.inputs.action == 'apply'
+        env:
+          API_CONTACT_URL: ${{ vars.API_CONTACT_URL }}
+        run: test -n "$API_CONTACT_URL"
+
       - name: Build frontend
         if: github.event.inputs.action == 'apply'
         env:

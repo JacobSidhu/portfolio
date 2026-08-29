@@ -63,10 +63,11 @@ locals {
 resource "aws_s3_object" "dist" {
   for_each = local.dist_files
 
-  bucket = aws_s3_bucket.portfolio_bucket.id
-  key    = each.value
-  source = "${path.module}/../../dist/${each.value}"
-  etag   = filemd5("${path.module}/../../dist/${each.value}")
+  bucket        = aws_s3_bucket.portfolio_bucket.id
+  key           = each.value
+  source        = "${path.module}/../../dist/${each.value}"
+  etag          = filemd5("${path.module}/../../dist/${each.value}")
+  cache_control = each.value == "index.html" ? "no-cache" : "public, max-age=31536000, immutable"
 
   content_type = lookup(
     local.content_types,
