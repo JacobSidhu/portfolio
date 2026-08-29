@@ -14,3 +14,11 @@ resource "aws_lambda_function" "portfolio_lambda" {
   handler = "index.handler"
   runtime = "nodejs22.x"
 }
+
+resource "aws_lambda_permission" "apigw_lambda" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/POST/contact"
+  function_name = aws_lambda_function.portfolio_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+}
