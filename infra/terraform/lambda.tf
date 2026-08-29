@@ -5,9 +5,12 @@ data "archive_file" "lambda_zip" {
 }
 
 resource "aws_lambda_function" "portfolio_lambda" {
-    function_name = "portfolio_lambda"
-    role          = aws_iam_role.portfolio_role_lambda_exec.arn
-    handler       = "index.handler"
-    runtime       = "nodejs18.x"
-    filename      = data.archive_file.lambda_zip.output_path
+  function_name = "portfolio_lambda"
+  role          = aws_iam_role.portfolio_role_lambda_exec.arn
+
+  filename         = data.archive_file.lambda_zip.output_path
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+
+  handler = "index.handler"
+  runtime = "nodejs22.x"
 }
