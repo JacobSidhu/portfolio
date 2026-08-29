@@ -41,6 +41,8 @@ jobs:
 
       - name: Build frontend
         if: github.event.inputs.action == 'apply'
+        env:
+          VITE_API_CONTACT_URL: ${{ vars.API_CONTACT_URL }}
         run: npm run build
 
       - name: Set up Terraform

@@ -32,6 +32,8 @@ jobs:
         run: npm ci
 
       - name: Build frontend
+        env:
+          VITE_API_CONTACT_URL: ${{ vars.API_CONTACT_URL }}
         run: npm run build
 
       - name: Set up Terraform
