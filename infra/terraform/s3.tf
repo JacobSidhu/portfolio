@@ -42,3 +42,35 @@ resource "aws_s3_bucket_policy" "portfolio_public_read" {
     ]
   })
 }
+
+locals {
+  dist_files = fileset("${path.module}/../../dist", "**/*")
+
+  content_types = {
+    html = "text/html"
+    css  = "text/css"
+    js   = "application/javascript"
+    json = "application/json"
+    png  = "image/png"
+    jpg  = "image/jpeg"
+    jpeg = "image/jpeg"
+    svg  = "image/svg+xml"
+    webp = "image/webp"
+    pdf  = "application/pdf"
+  }
+}
+
+resource "aws_s3_object" "dist" {
+  for_each = local.dist_files
+
+  bucket = aws_s3_bucket.portfolio_bucket.id
+  key    = each.value
+  source = "${path.module}/../../dist/${each.value}"
+  etag   = filemd5("${path.module}/../../dist/${each.value}")
+
+  content_type = lookup(
+    local.content_types,
+    lower(regex("[^.]+$", each.value)),
+    "application/octet-stream"
+  )
+}
