@@ -25,12 +25,18 @@ function parseBody(event) {
   return JSON.parse(body);
 }
 
+function getMethod(event) {
+  return event.requestContext?.http?.method || event.httpMethod || "";
+}
+
 exports.handler = async (event) => {
-  if (event.requestContext?.http?.method === "OPTIONS") {
+  const method = getMethod(event);
+
+  if (method === "OPTIONS") {
     return response(204, {});
   }
 
-  if (event.requestContext?.http?.method !== "POST") {
+  if (method !== "POST") {
     return response(405, { message: "Method not allowed." });
   }
 
