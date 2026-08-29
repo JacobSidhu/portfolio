@@ -502,3 +502,93 @@ window.addEventListener('keydown', (event) => {
     closeProjectDetailDialog();
   }
 });
+
+function setupContactForm() {
+  const form = document.getElementById("contact-form");
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  const API_CONTACT_URL = import.meta.env.VITE_API_CONTACT_URL || "";
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    const contactData = {
+      name: String(formData.get("name") || "").trim(),
+      email: String(formData.get("email") || "").trim().toLowerCase(),
+      subject: String(formData.get("subject") || "").trim(),
+      message: String(formData.get("message") || "").trim()
+    };
+
+    // Validate required fields
+    if (!contactData.email || !contactData.message) {
+      alert("Email and message are required.");
+      return;
+    }
+
+    // Validate email format
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(contactData.email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    // Prevent excessively large input
+    if (
+      contactData.name.length > 100 ||
+      contactData.email.length > 254 ||
+      contactData.subject.length > 200 ||
+      contactData.message.length > 5000
+    ) {
+      alert("One or more fields are too long.");
+      return;
+    }
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+    try {
+      if (!API_CONTACT_URL) {
+        throw new Error("VITE_API_CONTACT_URL is not configured.");
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+
+      const response = await fetch(API_CONTACT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(contactData),
+        signal: controller.signal,
+        credentials: "omit"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      console.log("Message sent successfully.");
+      alert("Your message has been sent.");
+
+      form.reset();
+    } catch (error) {
+      if (error.name === "AbortError") {
+        alert("The request timed out. Please try again.");
+      } else {
+        console.error("Contact form error:", error);
+        alert("The message could not be sent. Please try again.");
+      }
+    } finally {
+      clearTimeout(timeoutId);
+      submitButton.disabled = false;
+      submitButton.textContent = "Send Message";
+    }
+  });
+}
+
+setupContactForm();

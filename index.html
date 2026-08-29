@@ -802,7 +802,7 @@
       </section>
 
       <section class="contact-page is-hidden" id="contact" data-panel="contact" aria-labelledby="contact-title">
-        <form class="contact-form">
+        <form class="contact-form" id="contact-form">
           <h2 id="contact-title">Let's Connect</h2>
           <p>
             I'm open to junior cloud engineer, AWS Solutions Architect and
@@ -813,22 +813,22 @@
           <div class="field-grid">
             <label>
               <span>Name</span>
-              <input type="text" name="name" placeholder="Your name">
+              <input type="text" id="name" name="name" placeholder="Your name">
             </label>
             <label>
               <span>Email</span>
-              <input type="email" name="email" placeholder="your.email@example.com">
+              <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
             </label>
           </div>
 
           <label>
             <span>Subject</span>
-            <input type="text" name="subject" placeholder="Project, role, or collaboration">
+            <input type="text" id="subject" name="subject" placeholder="Project, role, or collaboration">
           </label>
 
           <label>
             <span>Message</span>
-            <textarea name="message" placeholder="Tell me what you would like to discuss"></textarea>
+            <textarea id="message" name="message" placeholder="Tell me what you would like to discuss" required></textarea>
           </label>
 
           <div class="form-actions">
