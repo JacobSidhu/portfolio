@@ -1,7 +1,10 @@
 name: Deploy Portfolio Website
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   build-and-validate:
@@ -53,4 +56,10 @@ jobs:
         env:
           TF_VAR_portfolio_bucket_name: ${{ vars.PORTFOLIO_BUCKET_NAME }}
         run: terraform plan -input=false -out=tfplan
+
+      - name: Apply Terraform
+        working-directory: infra/terraform
+        env:
+          TF_VAR_portfolio_bucket_name: ${{ vars.PORTFOLIO_BUCKET_NAME }}
+        run: terraform apply -input=false tfplan
 
