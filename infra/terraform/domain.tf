@@ -1,4 +1,4 @@
-resource "acm_certificate" "api" {
+resource "aws_acm_certificate" "api" {
   count = var.enable_custom_domain ? 1 : 0
 
   validation_method = "DNS"
@@ -19,7 +19,7 @@ resource "aws_acm_certificate_validation" "api" {
   }
 }
 
-resource "api_gatewayv2_domain_name" "api" {
+resource "aws_api_gatewayv2_domain_name" "api" {
   count = var.enable_custom_domain ? 1 : 0
 
   domain_name = var.portfolio_domain_name
@@ -30,10 +30,10 @@ resource "api_gatewayv2_domain_name" "api" {
   }
 }
 
-resource "api_gatewayv2_api_mapping" "api" {
+resource "aws_api_gatewayv2_api_mapping" "api" {
   count = var.enable_custom_domain ? 1 : 0
 
   api_id      = aws_apigatewayv2_api.api.id
-  domain_name = api_gatewayv2_domain_name.api[0].domain_name
+  domain_name = aws_api_gatewayv2_domain_name.api[0].domain_name
   stage       = aws_apigatewayv2_stage.api_stage.stage_name
 }
