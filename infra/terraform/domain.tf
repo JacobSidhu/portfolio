@@ -19,21 +19,21 @@ resource "aws_acm_certificate_validation" "api" {
   }
 }
 
-resource "aws_api_gatewayv2_domain_name" "api" {
+resource "aws_apigatewayv2_domain_name" "api" {
   count = var.enable_custom_domain ? 1 : 0
 
   domain_name = var.portfolio_domain_name
   domain_name_configuration {
-    certificate_arn = acm_certificate.api[0].arn
+    certificate_arn = aws_acm_certificate.api[0].arn
     endpoint_type   = "REGIONAL"
     security_policy = "TLS_1_2"
   }
 }
 
-resource "aws_api_gatewayv2_api_mapping" "api" {
+resource "aws_apigatewayv2_api_mapping" "api" {
   count = var.enable_custom_domain ? 1 : 0
 
   api_id      = aws_apigatewayv2_api.api.id
-  domain_name = aws_api_gatewayv2_domain_name.api[0].domain_name
-  stage       = aws_apigatewayv2_stage.api_stage.stage_name
+  domain_name = aws_apigatewayv2_domain_name.api[0].domain_name
+  stage       = aws_apigatewayv2_stage.api_stage.id
 }
