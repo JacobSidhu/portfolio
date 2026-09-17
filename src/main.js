@@ -1,14 +1,12 @@
 import './styles.css';
 
-const colors = ['#ffbaba', '#ccccff', '#fef7ff', '#cfe5c3', '#ffb0e6'];
-const navItems = document.querySelectorAll('.top-bar a');
-const glowDots = document.querySelectorAll('.dot-row span');
-const homePanel = document.querySelector('[data-panel="home"]');
-const aboutPanel = document.querySelector('[data-panel="about"]');
-const contactPanel = document.querySelector('[data-panel="contact"]');
-const skillsPanel = document.querySelector('[data-panel="skills"]');
+const navItems = document.querySelectorAll('.top-bar a[data-tab]');
+const menuToggle = document.querySelector('.menu-toggle');
+const navigation = document.querySelector('.top-bar');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let modalOpener = null;
+let projectOpener = null;
 const projectsPanel = document.querySelector('[data-panel="projects"]');
-const certificationsPanel = document.querySelector('[data-panel="certifications"]');
 const panels = document.querySelectorAll('[data-panel]');
 const tabTriggers = document.querySelectorAll('[data-tab-trigger]');
 const skillRowShells = document.querySelectorAll('.skill-row-shell');
@@ -38,15 +36,15 @@ let activeProjectKey = '';
 
 const defaultProjectDetails = {
   overview:
-    'This project demonstrates a practical cloud build with a clear architecture, deployment workflow, and production-minded decisions.\n\nTemporary scroll test content: this section is intentionally longer so the white project-detail window can be tested as the only scrollable area.\n\nThe final version can include the problem statement, target users, service boundaries, implementation notes, deployment flow, reliability concerns, and future improvements.\n\nAdditional placeholder paragraph for testing vertical overflow. The card should stay full height while this content scrolls inside the white content pane.\n\nAdditional placeholder paragraph for testing vertical overflow. The right-side menu and X button should remain visible while this content area scrolls.\n\nAdditional placeholder paragraph for testing vertical overflow. This confirms the project detail page behaves like a page inside the Projects tab, not like a dialog.',
+    'This project demonstrates a practical cloud build with a clear architecture, deployment workflow, and production-minded decisions.',
   architecture:
-    'The architecture view explains the key services, traffic flow, integration points, and operational boundaries of the project.\n\nTemporary scroll test content: add architecture diagrams, traffic flow, data flow, request lifecycle, failure modes, and AWS service responsibilities here.\n\nAdditional placeholder paragraph for testing scroll behavior inside the architecture section.\n\nAdditional placeholder paragraph for testing scroll behavior inside the architecture section.\n\nAdditional placeholder paragraph for testing scroll behavior inside the architecture section.',
+    'The architecture view explains the key services, traffic flow, integration points, and operational boundaries of the project.',
   decision:
-    'Design decisions focus on cost, maintainability, security, scalability, and keeping the implementation simple enough to operate.\n\nTemporary scroll test content: this area can explain why each service was chosen, what alternatives were rejected, and which tradeoffs were accepted.\n\nAdditional placeholder paragraph for testing scroll behavior inside the design decision section.\n\nAdditional placeholder paragraph for testing scroll behavior inside the design decision section.\n\nAdditional placeholder paragraph for testing scroll behavior inside the design decision section.',
+    'Design decisions focus on cost, maintainability, security, scalability, and keeping the implementation simple enough to operate.',
   repo:
-    'Repository details, source structure, deployment notes, and future links will live here when the project repo is finalized.\n\nTemporary scroll test content: include folder structure, setup commands, deployment commands, environment variables, and screenshots.\n\nAdditional placeholder paragraph for testing scroll behavior inside the GitHub repo section.\n\nAdditional placeholder paragraph for testing scroll behavior inside the GitHub repo section.\n\nAdditional placeholder paragraph for testing scroll behavior inside the GitHub repo section.',
+    'Repository details, source structure, deployment notes, and future links will live here when the project repo is finalized.',
   learning:
-    'Key lessons, tradeoffs, blockers, and improvements discovered while building this project will be documented here.\n\nTemporary scroll test content: include what worked, what failed, what changed, and what would be improved in version 2.\n\nAdditional placeholder paragraph for testing scroll behavior inside the learning section.\n\nAdditional placeholder paragraph for testing scroll behavior inside the learning section.\n\nAdditional placeholder paragraph for testing scroll behavior inside the learning section.',
+    'Key lessons, tradeoffs, blockers, and improvements discovered while building this project will be documented here.',
 };
 
 const projectDetails = {
@@ -90,145 +88,56 @@ const projectDetails = {
     architectureImage: '/assets/project-realtime-data-management-architecture.png',
     architectureImageAlt: 'Real-time data management architecture diagram',
     overview:
-      'A real-time data processing service built on AWS. A producer Lambda sends JSON event records to Amazon Kinesis Data Streams, and a consumer Lambda processes each stream record before writing the result into DynamoDB.\n\nThe project demonstrates an event-driven ingestion flow where data is accepted, buffered, processed, and persisted without managing servers.\n\nTemporary scroll test content: this paragraph exists to verify that the content pane scrolls while the project card remains full height.\n\nThe producer and consumer responsibilities are separated so each Lambda function has a focused purpose. That also makes debugging and operational review easier.\n\nKinesis acts as the handoff point between ingestion and processing, giving the workflow a more realistic streaming architecture than direct Lambda-to-DynamoDB writes.\n\nCloudWatch Logs supports troubleshooting for producer events, consumer processing, and failed payload handling.\n\nAdditional placeholder paragraph for testing scroll behavior. This will be replaced with final project details later.',
+      'A real-time data processing service built on AWS. A producer Lambda sends JSON event records to Amazon Kinesis Data Streams, and a consumer Lambda processes each stream record before writing the result into DynamoDB.\n\nThe project demonstrates an event-driven ingestion flow where data is accepted, buffered, processed, and persisted without managing servers.\n\nThe producer and consumer responsibilities are separated so each Lambda function has a focused purpose. That also makes debugging and operational review easier.\n\nKinesis acts as the handoff point between ingestion and processing, giving the workflow a more realistic streaming architecture than direct Lambda-to-DynamoDB writes.\n\nCloudWatch Logs supports troubleshooting for producer events, consumer processing, and failed payload handling.',
     architecture:
       'Diagram description:\nThe architecture shows a serverless real-time data pipeline inside AWS Cloud. A user or test event invokes a Lambda producer inside the public subnet. The producer sends JSON records into Amazon Kinesis Data Streams. Kinesis then triggers a Lambda consumer through an event source mapping. The consumer decodes the stream payload and writes processed items into Amazon DynamoDB. Both Lambda functions publish logs and monitoring output to Amazon CloudWatch Logs.\n\nFlow:\n1. User / test event invokes the producer Lambda.\n2. Producer Lambda validates and serializes the event payload.\n3. Producer Lambda writes the event to Kinesis Data Streams with put_record().\n4. Kinesis buffers the record and invokes the consumer Lambda through the stream trigger.\n5. Consumer Lambda decodes and processes the record.\n6. Consumer Lambda stores the processed item in DynamoDB with put_item().\n7. Producer and consumer Lambda logs are sent to CloudWatch for troubleshooting and monitoring.\n\nWhy this architecture works:\nKinesis separates ingestion from processing, which makes the pipeline more resilient than a direct Lambda-to-DynamoDB write path. Lambda keeps compute serverless, DynamoDB provides fast persistence, and CloudWatch gives a clear operational trail for debugging.',
     decision:
-      'Kinesis separates ingestion from processing so events can be buffered and consumed reliably. Lambda keeps compute serverless, DynamoDB gives low-latency writes, and CloudWatch provides basic operational visibility.\n\nThe producer and consumer are separate because it keeps responsibilities clean: one function sends events into the stream, the other processes records from the stream.\n\nDynamoDB is a good fit for this project because the data model is simple, writes are fast, and it avoids operating a database server.\n\nCloudWatch is included because serverless systems still need logs, metrics, and troubleshooting paths.\n\nTemporary scroll test content: this paragraph helps confirm the design decision section scrolls correctly.\n\nAdditional placeholder paragraph for testing scroll behavior. Final content can include rejected alternatives and cost/security notes.',
+      'Kinesis separates ingestion from processing so events can be buffered and consumed reliably. Lambda keeps compute serverless, DynamoDB gives low-latency writes, and CloudWatch provides basic operational visibility.\n\nThe producer and consumer are separate because it keeps responsibilities clean: one function sends events into the stream, the other processes records from the stream.\n\nDynamoDB is a good fit for this project because the data model is simple, writes are fast, and it avoids operating a database server.\n\nCloudWatch is included because serverless systems still need logs, metrics, and troubleshooting paths.',
     repo:
-      'GitHub: https://github.com/JacobSidhu/real-time-data-management-service\n\nThe repository contains separate producer and consumer Lambda folders, screenshots, README documentation, and the architecture diagram.\n\nThe README describes the pipeline as an AWS Lambda, Amazon Kinesis Data Streams, and Amazon DynamoDB project.\n\nTemporary scroll test content: add setup instructions, AWS prerequisites, deployment notes, and test event examples here.\n\nSuggested final repo section: repository structure, how to run or deploy, screenshots, architecture file, and future improvements.\n\nAdditional placeholder paragraph for testing scroll behavior.',
+      'GitHub: https://github.com/JacobSidhu/real-time-data-management-service\n\nThe repository contains separate producer and consumer Lambda folders, screenshots, README documentation, and the architecture diagram.\n\nThe README describes the pipeline as an AWS Lambda, Amazon Kinesis Data Streams, and Amazon DynamoDB project.\n\nSuggested final repo section: repository structure, how to run or deploy, screenshots, architecture file, and future improvements.',
     learning:
-      'This project shows event-source mapping, producer and consumer Lambda separation, stream payload decoding, DynamoDB writes, and the monitoring path needed for a serverless streaming workflow.\n\nThe key learning is that real-time architecture is mostly about boundaries: where data enters, where it is buffered, where it is processed, and where failures can be observed.\n\nSeparating the producer and consumer makes the flow easier to reason about and closer to how production event pipelines are usually structured.\n\nTemporary scroll test content: this paragraph helps test vertical overflow in the learning panel.\n\nAdditional placeholder paragraph for testing scroll behavior. Later this can become a concise write-up of blockers, fixes, and next improvements.',
+      'This project shows event-source mapping, producer and consumer Lambda separation, stream payload decoding, DynamoDB writes, and the monitoring path needed for a serverless streaming workflow.\n\nThe key learning is that real-time architecture is mostly about boundaries: where data enters, where it is buffered, where it is processed, and where failures can be observed.\n\nSeparating the producer and consumer makes the flow easier to reason about and closer to how production event pipelines are usually structured.',
   },
 };
 
-function shuffledColors() {
-  return [...colors].sort(() => Math.random() - 0.5);
-}
-
-function updateGlowColors() {
-  shuffledColors().forEach((color, index) => {
-    glowDots[index].style.setProperty('--dot-color', color);
-  });
-}
-
-function replayHomeAnimation() {
-  homePanel.classList.add('is-animating');
-  window.requestAnimationFrame(() => {
-    homePanel.classList.remove('is-animating');
-  });
-}
-
-function replayAboutAnimation() {
-  aboutPanel.classList.add('is-animating');
-  window.requestAnimationFrame(() => {
-    aboutPanel.classList.remove('is-animating');
-  });
-}
-
-function replayContactAnimation() {
-  contactPanel.classList.add('is-animating');
-  window.requestAnimationFrame(() => {
-    contactPanel.classList.remove('is-animating');
-  });
-}
-
-function replaySkillsAnimation() {
-  skillsPanel.classList.add('is-animating');
-  window.requestAnimationFrame(() => {
-    skillsPanel.classList.remove('is-animating');
-  });
-}
-
-function replayProjectsAnimation() {
-  projectsPanel.classList.add('is-animating');
-  window.requestAnimationFrame(() => {
-    projectsPanel.classList.remove('is-animating');
-  });
-}
-
-function replayCertificationsAnimation() {
-  certificationsPanel.classList.add('is-animating');
-  window.requestAnimationFrame(() => {
-    certificationsPanel.classList.remove('is-animating');
-  });
-}
-
-function activateTab(tabName) {
+function activateTab(tabName, { updateHistory = true, focus = true } = {}) {
+  if (![...panels].some((panel) => panel.dataset.panel === tabName)) tabName = 'home';
+  closeMenu();
+  if (updateHistory && location.hash !== `#${tabName}`) history.pushState(null, '', `#${tabName}`);
   navItems.forEach((navItem) => {
-    navItem.classList.toggle('active', navItem.dataset.tab === tabName);
+    const active = navItem.dataset.tab === tabName;
+    navItem.classList.toggle('active', active);
+    if (active) navItem.setAttribute('aria-current', 'page');
+    else navItem.removeAttribute('aria-current');
   });
   panels.forEach((panel) => {
     panel.classList.toggle('is-hidden', panel.dataset.panel !== tabName);
   });
-  if (tabName === 'home') {
-    replayHomeAnimation();
-  }
-  if (tabName === 'about') {
-    replayAboutAnimation();
-  }
-  if (tabName === 'contact') {
-    replayContactAnimation();
-  }
-  if (tabName === 'skills') {
-    replaySkillsAnimation();
-  }
   if (tabName === 'projects') {
     showProjectListPage();
-    replayProjectsAnimation();
   }
-  if (tabName === 'certifications') {
-    replayCertificationsAnimation();
-  }
-  updateGlowColors();
   updateSkillRowControls();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  const activePanel = document.querySelector(`[data-panel="${tabName}"]`);
+  if (focus) {
+    const heading = activePanel.querySelector('h1, h2');
+    heading.tabIndex = -1;
+    heading.focus({ preventScroll: true });
+  }
+  document.querySelector('.skip-link').href = `#${tabName}`;
 }
 
 function showProjectListPage() {
   projectDetailPage.hidden = true;
   projectListPage.hidden = false;
-  projectsPanel.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 function showProjectDetailPage() {
   projectListPage.hidden = true;
   projectDetailPage.hidden = false;
-  projectsPanel.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'instant' });
   projectDetailPage.focus();
-}
-
-function getActiveScrollPanel() {
-  return Array.from(panels).find((panel) => !panel.classList.contains('is-hidden') && panel.scrollHeight > panel.clientHeight + 1);
-}
-
-function isInsideScrollableElement(target) {
-  const scrollableElement = target.closest('.skill-card-row, .project-detail-content, .certificate-modal, .image-modal');
-
-  if (!scrollableElement) {
-    return false;
-  }
-
-  return scrollableElement.scrollHeight > scrollableElement.clientHeight + 1
-    || scrollableElement.scrollWidth > scrollableElement.clientWidth + 1;
-}
-
-function routeWheelToActivePanel(event) {
-  if (isInsideScrollableElement(event.target)) {
-    return;
-  }
-
-  const activePanel = getActiveScrollPanel();
-
-  if (!activePanel) {
-    return;
-  }
-
-  event.preventDefault();
-  activePanel.scrollBy({
-    top: event.deltaY,
-    left: event.deltaX,
-    behavior: 'auto',
-  });
 }
 
 function updateSkillRowControls() {
@@ -250,14 +159,19 @@ function updateSkillRowControls() {
 }
 
 function openCertificateDialog(event) {
+  modalOpener = event.currentTarget;
   certificatePreview.src = event.currentTarget.dataset.certImage || '/assets/cert-terraform-associate-full.png';
   certificatePreview.alt = event.currentTarget.dataset.certAlt || 'Terraform Associate certificate';
   certificateDialog.hidden = false;
+  certificateModal.setAttribute('aria-label', certificatePreview.alt);
+  lockBackground(true);
   certificateModal.focus();
 }
 
 function closeCertificateDialog() {
   certificateDialog.hidden = true;
+  lockBackground(false);
+  modalOpener?.focus({ preventScroll: true });
   certificatePreview.src = '/assets/cert-terraform-associate-full.png';
   certificatePreview.alt = 'Terraform Associate certificate';
 }
@@ -270,20 +184,25 @@ function openProjectImageDialog(event) {
   }
 
   projectImagePreview.src = image.currentSrc || image.src;
+  modalOpener = event.currentTarget;
   projectImagePreview.alt = image.alt;
   projectImageDialog.hidden = false;
+  lockBackground(true);
   projectImageModal.focus();
 }
 
 function closeProjectImageDialog() {
   projectImageDialog.hidden = true;
-  projectImagePreview.src = '';
+  lockBackground(false);
+  modalOpener?.focus({ preventScroll: true });
+  projectImagePreview.removeAttribute('src');
   projectImagePreview.alt = '';
 }
 
 function setProjectDetailPanel(panelName) {
   projectDetailTabs.forEach((tab) => {
     tab.classList.toggle('active', tab.dataset.projectDetailTab === panelName);
+    tab.setAttribute('aria-pressed', String(tab.dataset.projectDetailTab === panelName));
   });
   projectDetailPanels.forEach((panel) => {
     panel.hidden = panel.dataset.projectPanel !== panelName;
@@ -395,6 +314,7 @@ function updateProjectVersionOptions(projectKey) {
 }
 
 function openProjectDetailDialog(event) {
+  projectOpener = event.currentTarget;
   activeProjectKey = event.currentTarget.dataset.projectKey || '';
   projectDetailTitle.textContent = event.currentTarget.dataset.projectTitle || 'Project Name Here here';
   updateProjectVersionOptions(activeProjectKey);
@@ -405,6 +325,7 @@ function openProjectDetailDialog(event) {
 
 function closeProjectDetailDialog() {
   showProjectListPage();
+  projectOpener?.focus();
 }
 
 navItems.forEach((item) => {
@@ -413,7 +334,6 @@ navItems.forEach((item) => {
     activateTab(item.dataset.tab);
   });
 
-  item.addEventListener('focus', updateGlowColors);
 });
 
 tabTriggers.forEach((trigger) => {
@@ -431,7 +351,7 @@ skillRowShells.forEach((shell) => {
       const direction = button.dataset.skillScroll === 'next' ? 1 : -1;
       row.scrollBy({
         left: direction * Math.max(row.clientWidth * 0.75, 220),
-        behavior: 'smooth',
+        behavior: reducedMotion.matches ? 'instant' : 'smooth',
       });
     });
   });
@@ -440,7 +360,6 @@ skillRowShells.forEach((shell) => {
 });
 
 window.addEventListener('resize', updateSkillRowControls);
-window.addEventListener('wheel', routeWheelToActivePanel, { passive: false });
 updateSkillRowControls();
 
 certificateDialogOpeners.forEach((button) => {
@@ -491,21 +410,66 @@ projectVersionSelect.addEventListener('change', () => {
   setProjectDetailPanel('architecture');
 });
 
+function closeMenu() {
+  menuToggle.setAttribute('aria-expanded', 'false');
+  navigation.classList.remove('is-open');
+}
+
+function lockBackground(locked) {
+  document.body.classList.toggle('modal-open', locked);
+  document.querySelectorAll('.site-header, [data-panel], .site-footer').forEach((element) => {
+    element.inert = locked;
+  });
+}
+
+menuToggle.addEventListener('click', () => {
+  const open = menuToggle.getAttribute('aria-expanded') !== 'true';
+  menuToggle.setAttribute('aria-expanded', String(open));
+  navigation.classList.toggle('is-open', open);
+});
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.site-header')) closeMenu();
+});
+document.addEventListener('focusin', (event) => {
+  if (!event.target.closest('.site-header')) closeMenu();
+});
+window.matchMedia('(max-width: 760px)').addEventListener('change', closeMenu);
+window.addEventListener('popstate', () => activateTab(location.hash.slice(1), { updateHistory: false }));
+window.addEventListener('hashchange', () => activateTab(location.hash.slice(1), { updateHistory: false }));
+
 window.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && !certificateDialog.hidden) {
-    closeCertificateDialog();
+  const modal = !certificateDialog.hidden ? certificateModal : !projectImageDialog.hidden ? projectImageModal : null;
+  if (event.key === 'Tab' && modal) {
+    const controls = [...modal.querySelectorAll('button, a[href], [tabindex="0"]')];
+    const first = controls[0];
+    const last = controls.at(-1);
+    if (event.shiftKey && (document.activeElement === first || document.activeElement === modal)) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && (document.activeElement === last || document.activeElement === modal)) {
+      event.preventDefault();
+      first.focus();
+    }
   }
-  if (event.key === 'Escape' && !projectImageDialog.hidden) {
-    closeProjectImageDialog();
-  }
-  if (event.key === 'Escape' && !projectDetailPage.hidden) {
-    closeProjectDetailDialog();
-  }
+  if (event.key !== 'Escape') return;
+  if (!certificateDialog.hidden) closeCertificateDialog();
+  else if (!projectImageDialog.hidden) closeProjectImageDialog();
+  else if (navigation.classList.contains('is-open')) {
+    closeMenu();
+    menuToggle.focus();
+  } else if (!projectDetailPage.hidden && !projectsPanel.classList.contains('is-hidden')) closeProjectDetailDialog();
 });
 
 function setupContactForm() {
   const form = document.getElementById("contact-form");
   const submitButton = form.querySelector('button[type="submit"]');
+  const status = form.querySelector('.form-status');
+  const setStatus = (message, state = 'error') => {
+    status.hidden = false;
+    status.textContent = message;
+    status.dataset.state = state;
+  };
+  form.addEventListener('reset', () => { status.hidden = true; });
 
   const API_CONTACT_URL = import.meta.env.VITE_API_CONTACT_URL || "";
 
@@ -523,7 +487,7 @@ function setupContactForm() {
 
     // Validate required fields
     if (!contactData.email || !contactData.message) {
-      alert("Email and message are required.");
+      setStatus("Email and message are required.");
       return;
     }
 
@@ -531,7 +495,7 @@ function setupContactForm() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailPattern.test(contactData.email)) {
-      alert("Please enter a valid email address.");
+      setStatus("Please enter a valid email address.");
       return;
     }
 
@@ -542,7 +506,7 @@ function setupContactForm() {
       contactData.subject.length > 200 ||
       contactData.message.length > 5000
     ) {
-      alert("One or more fields are too long.");
+      setStatus("One or more fields are too long.");
       return;
     }
 
@@ -551,11 +515,13 @@ function setupContactForm() {
 
     try {
       if (!API_CONTACT_URL) {
-        throw new Error("VITE_API_CONTACT_URL is not configured.");
+        setStatus("The contact form is currently unavailable. Please email Jacobsidhu@hotmail.com directly.");
+        return;
       }
 
       submitButton.disabled = true;
       submitButton.textContent = "Sending...";
+      setStatus('Sending your message…', 'pending');
 
       const response = await fetch(API_CONTACT_URL, {
         method: "POST",
@@ -572,16 +538,14 @@ function setupContactForm() {
         throw new Error(`Request failed with status ${response.status}`);
       }
 
-      console.log("Message sent successfully.");
-      alert("Your message has been sent.");
-
       form.reset();
+      setStatus("Thanks for reaching out. Your message has been sent.", 'success');
     } catch (error) {
       if (error.name === "AbortError") {
-        alert("The request timed out. Please try again.");
+        setStatus("The request timed out. Please try again.");
       } else {
         console.error("Contact form error:", error);
-        alert("The message could not be sent. Please try again.");
+        setStatus("The message could not be sent. Please try again or email me directly.");
       }
     } finally {
       clearTimeout(timeoutId);
@@ -592,3 +556,39 @@ function setupContactForm() {
 }
 
 setupContactForm();
+
+// Reveal each card once as it enters the viewport; hidden panels stay observable.
+if ('IntersectionObserver' in window && !reducedMotion.matches) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.project-card, .about-focus-grid article, .certification-card, .learning-certification-card, .skill-group').forEach((card, index) => {
+    card.dataset.reveal = '';
+    card.style.setProperty('--reveal-delay', `${(index % 2) * 60}ms`);
+    observer.observe(card);
+  });
+}
+
+document.querySelectorAll('.certification-segmented-control [role="tab"]').forEach((tab, index, tabs) => {
+  tab.tabIndex = index === 0 ? 0 : -1;
+  const view = document.querySelector(`[data-certification-view="${tab.dataset.certificationViewTrigger}"]`);
+  tab.id = `cert-tab-${index}`;
+  view.id = `cert-view-${index}`;
+  view.setAttribute('role', 'tabpanel');
+  view.setAttribute('aria-labelledby', tab.id);
+  tab.setAttribute('aria-controls', view.id);
+  tab.addEventListener('click', () => tabs.forEach((item) => { item.tabIndex = item === tab ? 0 : -1; }));
+  tab.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? tabs[0] : event.key === 'End' ? tabs[tabs.length - 1] : tabs[(index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+    next.click();
+    next.focus();
+  });
+});
+
+activateTab(location.hash.slice(1) || 'home', { updateHistory: false, focus: false });
