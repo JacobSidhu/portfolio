@@ -6,19 +6,28 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800;900&family=Rock+Salt&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     >
-    <title>Portfolio</title>
+    <meta name="theme-color" content="#f6f7f9">
+    <meta name="description" content="Jacob Sidhu — software engineer building practical cloud systems with AWS, Terraform, Docker and Node.js. Explore projects, skills and certifications.">
+    <title>Jacob Sidhu — Software &amp; Cloud Engineer</title>
   </head>
   <body>
-    <main id="app" aria-label="Portfolio background">
-      <nav class="top-bar" aria-label="Portfolio navigation">
+    <a class="skip-link" href="#home">Skip to content</a>
+    <main id="app" aria-label="Jacob Sidhu portfolio">
+      <header class="site-header">
+        <a class="wordmark" href="#home" data-tab-trigger="home" aria-label="Jacob Sidhu home">js<span>.</span></a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation"><span>Menu</span><span class="menu-icon" aria-hidden="true"></span></button>
+      <nav class="top-bar" id="site-navigation" aria-label="Portfolio navigation">
         <a class="active" href="#home" data-tab="home">Home</a>
         <a href="#about" data-tab="about">About</a>
         <a href="#skills" data-tab="skills">Skills</a>
+        <a href="#projects" data-tab="projects">Projects</a>
         <a href="#certifications" data-tab="certifications">Certifications</a>
+        <a class="nav-contact" href="#contact" data-tab="contact">Let's talk <span aria-hidden="true">↗</span></a>
       </nav>
+      </header>
 
       <div class="dot-row" aria-hidden="true">
         <span></span>
@@ -30,20 +39,18 @@
 
       <section class="hero" id="home" data-panel="home" aria-labelledby="hero-title">
         <div class="hero-copy">
+          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Available for opportunities</p>
           <h1 id="hero-title">
-            <span>Jacob</span>
-            <span>Sidhu</span>
+            <span>Jacob Sidhu<span class="name-period">.</span></span>
           </h1>
+          <p class="hero-role">Software engineer.<br><span>Cloud-minded builder.</span></p>
           <p class="hero-intro">
-            Hi, I'm <strong>Jacob Masih</strong><br>
-            Software Engineer &amp; Aspiring AWS Cloud Architect<br>
-            I design and build secure, scalable cloud solutions using AWS,<br>
-            Terraform, Docker and Node.js.
+            Hi, I'm Jacob Masih. I turn ideas into secure, scalable cloud solutions with AWS, code, and a little automation.
           </p>
 
           <div class="hero-actions" aria-label="Primary actions">
-            <a class="button primary" href="#projects" data-tab-trigger="projects">View Projects</a>
-            <a class="button secondary" href="#contact" data-tab-trigger="contact">Contact Me</a>
+            <a class="button primary" href="#projects" data-tab-trigger="projects">Explore my work <span aria-hidden="true">↗</span></a>
+            <a class="button secondary" href="#contact" data-tab-trigger="contact">Get in touch <span aria-hidden="true">→</span></a>
           </div>
 
           <div class="social-links" aria-label="Social links">
@@ -57,14 +64,20 @@
             </a>
             <a class="resume-download-link" href="/assets/resume.pdf" download>
               <span class="social-icon resume-download-icon" aria-hidden="true"></span>
-              <span>Resume Download</span>
+              <span>Resume</span>
             </a>
           </div>
         </div>
 
+        <div class="hero-visual">
+        <div class="visual-orbit" aria-hidden="true"></div>
         <figure class="profile-frame">
           <img src="/assets/profile-light-blue-shirt.png" alt="Jacob Sidhu">
         </figure>
+        <div class="profile-note"><span class="note-icon" aria-hidden="true">&lt;/&gt;</span><span>From code to cloud<strong>Built with purpose.</strong></span></div>
+        <p class="visual-caption"><span class="status-dot" aria-hidden="true"></span> Based in Preston, United Kingdom</p>
+        </div>
+        <div class="hero-stack"><span>MY EVERYDAY TOOLKIT</span><div><span>AWS</span><span>Terraform</span><span>Docker</span><span>Node.js</span><span>GitHub Actions</span></div></div>
       </section>
 
       <section class="about-page is-hidden" id="about" data-panel="about" aria-labelledby="about-title">
@@ -113,9 +126,10 @@
 
       <section class="skills-page is-hidden" id="skills" data-panel="skills" aria-labelledby="skills-title">
         <header class="skills-header">
-          <h2 id="skills-title">Skills <span>&amp;</span> Expertises</h2>
+          <p class="eyebrow">THE TOOLKIT</p>
+          <h2 id="skills-title">Skills <span>&amp;</span> expertise.</h2>
           <p>
-            Technologies, frameworks and tools i use to design, build, deploy, and
+            Technologies, frameworks and tools I use to design, build, deploy, and
             manage scalable, secure and reliable cloud solutions.
           </p>
         </header>
@@ -458,7 +472,8 @@
       <section class="projects-page is-hidden" id="projects" data-panel="projects" aria-labelledby="projects-title">
         <div class="project-list-page" data-project-list-page>
           <header class="projects-header">
-            <h2 id="projects-title">Projects</h2>
+            <p class="eyebrow">SELECTED WORK</p>
+            <h2 id="projects-title">Ideas into infrastructure.</h2>
             <p>
               Selected cloud and software builds focused on practical architecture,
               automation, deployment, and maintainable engineering.
@@ -667,7 +682,8 @@
       <section class="certifications-page is-hidden" id="certifications" data-panel="certifications" aria-labelledby="certifications-title">
         <header class="certifications-header">
           <div class="certifications-header-copy">
-            <h2 id="certifications-title">Certifications</h2>
+            <p class="eyebrow">ALWAYS LEARNING</p>
+            <h2 id="certifications-title">Credentials &amp; curiosity.</h2>
             <p>
               Cloud, DevOps, and infrastructure credentials that validate practical
               architecture, automation, and delivery skills.
@@ -803,7 +819,8 @@
 
       <section class="contact-page is-hidden" id="contact" data-panel="contact" aria-labelledby="contact-title">
         <form class="contact-form" id="contact-form">
-          <h2 id="contact-title">Let's Connect</h2>
+          <p class="eyebrow">START A CONVERSATION</p>
+          <h2 id="contact-title">Let's build something.</h2>
           <p>
             I'm open to junior cloud engineer, AWS Solutions Architect and
             software Engineer opportunities. If you'd like to discuss a role,
@@ -813,24 +830,25 @@
           <div class="field-grid">
             <label>
               <span>Name</span>
-              <input type="text" id="name" name="name" placeholder="Your name">
+              <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" maxlength="100">
             </label>
             <label>
               <span>Email</span>
-              <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+              <input type="email" id="email" name="email" placeholder="your.email@example.com" autocomplete="email" maxlength="254" required>
             </label>
           </div>
 
           <label>
             <span>Subject</span>
-            <input type="text" id="subject" name="subject" placeholder="Project, role, or collaboration">
+            <input type="text" id="subject" name="subject" placeholder="Project, role, or collaboration" maxlength="200">
           </label>
 
           <label>
             <span>Message</span>
-            <textarea id="message" name="message" placeholder="Tell me what you would like to discuss" required></textarea>
+            <textarea id="message" name="message" placeholder="Tell me what you would like to discuss" maxlength="5000" required></textarea>
           </label>
 
+          <p class="form-status" role="status" aria-live="polite" hidden></p>
           <div class="form-actions">
             <button class="clear-button" type="reset">Clear</button>
             <button class="send-button" type="submit">Send Message</button>
@@ -894,6 +912,7 @@
         </section>
       </div>
 
+      <footer class="site-footer"><span>Jacob Sidhu<span class="footer-dot">.</span></span><p>Thoughtful code. Practical cloud solutions.</p><a href="#contact" data-tab-trigger="contact">Let's connect <span aria-hidden="true">↗</span></a></footer>
     </main>
     <script type="module" src="/src/main.js"></script>
   </body>
