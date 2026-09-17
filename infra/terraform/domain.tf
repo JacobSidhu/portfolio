@@ -12,7 +12,7 @@ resource "aws_acm_certificate" "api" {
 resource "aws_acm_certificate_validation" "api" {
   count = var.enable_custom_domain ? 1 : 0
 
-  certificate_arn = aws_acm_certificate.api[0].arn
+  certificate_arn = aws_acm_certificate.validation.api[0].certificate_validation_arn
 
   timeouts {
     create = "45m"
