@@ -24,5 +24,5 @@ variable "enable_custom_domain" {
 variable "portfolio_domain_name" {
   description = "The domain name for the portfolio website."
   type        = string
-  default     = "jacobsidhu.com"
+  default     = "www.jacobsidhu.com"
 }
