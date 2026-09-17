@@ -14,3 +14,15 @@ variable "terraform-state-bucket-name" {
   type        = string
   default     = "terraform-state-bucket-name"
 }
+
+variable "enable_custom_domain" {
+  description = "Whether to create an ACM certificate for the portfolio domain."
+  type        = bool
+  default     = true
+}
+
+variable "portfolio_domain_name" {
+  description = "The domain name for the portfolio website."
+  type        = string
+  default     = "jacobsidhu.com"
+}
