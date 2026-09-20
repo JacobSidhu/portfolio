@@ -82,6 +82,22 @@ const projectDetails = {
         learning:
           'Version 2.0.0 improves the project by moving from one EC2 host running all application containers to a clearer distributed layout with separate EC2 instances.\n\nThe main learning is service separation: splitting read and write concerns across hosts changes deployment, networking, security group design, and operational thinking.\n\nThis version is a useful step before more production-grade AWS patterns such as Application Load Balancers, autoscaling groups, private subnets, RDS, ECR, ECS, CloudWatch dashboards, and centralized logging.',
       },
+      {
+        value: 'v3',
+        label: 'Version 3.0.0',
+        architectureImage: '/assets/project-quizx-aws-v3-architecture.png',
+        architectureImageAlt: 'QuizX AWS distributed system version 3 architecture diagram',
+        overview:
+          'QuizX version 3.0.0 adds a single, secure HTTPS entry point to the distributed quiz platform. Amazon API Gateway serves the custom quizx.lecux.com domain with an AWS Certificate Manager certificate, then reaches an internal Application Load Balancer through a private VPC Link.\n\nThe Question App and Submit App continue to run as separate Docker Compose workloads on two EC2 instances. Submissions follow an event-driven path through RabbitMQ to an ETL consumer, which persists approved data in MySQL for the Question App to read.\n\nThe release candidate passed CI, Docker builds, Terraform validation and planning, infrastructure deployment, HTTPS routing, integration and persistence checks, security verification, and a clean Terraform destroy.',
+        architecture:
+          'Diagram description:\nVersion 3.0.0 runs across two Availability Zones inside one AWS VPC. GoDaddy DNS points the quizx.lecux.com custom domain to Amazon API Gateway, where ACM terminates TLS. API Gateway uses a VPC Link to reach an internal Application Load Balancer. The ALB performs health-aware, path-based routing: /question traffic goes to the Question App target group and /submit traffic goes to the Submit App target group.\n\nThe Question App EC2 instance runs the Question App, ETL consumer, and MySQL containers. The Submit App EC2 instance runs the Submit App and RabbitMQ. Security-group references restrict traffic between the VPC Link, ALB, applications, and RabbitMQ, while MySQL remains available only on its private Docker network.\n\nFlow:\n1. GoDaddy resolves quizx.lecux.com to the API Gateway regional domain.\n2. API Gateway terminates HTTPS using the ACM certificate.\n3. The default API route forwards requests privately through the VPC Link.\n4. The internal ALB routes /question and /submit requests to separate EC2 target groups.\n5. The Submit App validates a new question and publishes it to a durable RabbitMQ queue.\n6. The ETL consumer reads the message over the private EC2 network and writes it to MySQL.\n7. The Question App reads the persisted question from MySQL.\n8. GitHub Actions validates, provisions, manages DNS, deploys both workloads in parallel, verifies HTTPS and integration health, and supports cleanup.\n\nWhy version 3 matters:\nIt replaces separate public application URLs with one TLS-protected domain and adds health-aware private ingress without losing the event-driven service boundary introduced in v2.',
+        decision:
+          'API Gateway and ACM provide one stable HTTPS endpoint and keep TLS certificate management within AWS. A VPC Link connects that public edge to an internal ALB, so the load balancer does not need to be internet-facing.\n\nThe ALB uses separate target groups, health checks, and path rules because the Question and Submit services have independent responsibilities and failure modes. Two subnets in separate Availability Zones satisfy ALB requirements and make the network layout ready for stronger availability patterns.\n\nRabbitMQ decouples submission from persistence. If the ETL consumer is temporarily unavailable, durable messages remain queued for later processing. MySQL and RabbitMQ stay self-managed in Docker to keep this learning release understandable and cost-aware.\n\nSecurity-group-to-security-group rules are used for service traffic. Administrator SSH is restricted to a required CIDR, while temporary GitHub runner SSH access is added during deployment and removed with failure-safe cleanup.',
+        repo:
+          'GitHub: https://github.com/JacobSidhu/quizx-aws-distributed-system\n\nVersion: 3.0.0\nArchitecture: API Gateway custom domain, ACM TLS, VPC Link, internal Application Load Balancer, two EC2 instances across two Availability Zones, Docker Compose, RabbitMQ, ETL consumer, MySQL, Terraform, and GitHub Actions.\n\nThe repository includes three Node.js services, separate Docker Compose definitions for each EC2 workload, Terraform modules for networking, compute, security groups, the ALB, API Gateway, ACM and domain integration, automated GoDaddy DNS scripts, CI/CD workflows, architecture documentation, cost and security notes, and v3 test evidence.',
+        learning:
+          'Version 3.0.0 demonstrates multi-AZ VPC design, API Gateway custom domains, ACM certificate validation through an external DNS provider, private VPC Link integration, internal ALB target groups and path routing, and security-group-to-security-group access control.\n\nIt also develops operational experience: Terraform remote state, coordinated DNS and infrastructure lifecycles, parallel EC2 deployment, temporary CI runner access with cleanup, durable messaging, end-to-end HTTPS verification, persistence testing, and full infrastructure destruction.\n\nThe remaining production improvements are explicit: replace long-lived AWS keys with GitHub OIDC, replace SSH deployment with immutable images, move applications to private subnets, use managed secrets and data services, and add authentication, rate limiting, WAF, centralized logs, metrics, alarms, and tracing.',
+      },
     ],
   },
   'realtime-data-management': {
@@ -309,7 +325,7 @@ function updateProjectVersionOptions(projectKey) {
     option.textContent = version.label;
     projectVersionSelect.append(option);
   });
-  projectVersionSelect.value = versions[0].value;
+  projectVersionSelect.value = versions.at(-1).value;
   projectVersionSelect.hidden = versions.length < 2;
 }
 
