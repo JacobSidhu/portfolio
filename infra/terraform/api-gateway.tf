@@ -44,4 +44,10 @@ resource "aws_apigatewayv2_stage" "api_stage" {
   api_id      = aws_apigatewayv2_api.api.id
   name        = "$default"
   auto_deploy = true
+
+  route_settings {
+    route_key              = "POST /contact"
+    throttling_burst_limit = 2
+    throttling_rate_limit  = 5
+  }
 }
