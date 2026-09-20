@@ -22,6 +22,10 @@ resource "aws_apigatewayv2_integration" "s3_index_integration" {
   integration_method     = "GET"
   integration_uri        = "http://${aws_s3_bucket_website_configuration.portfolio_website.website_endpoint}"
   payload_format_version = "1.0"
+
+  request_parameters = {
+    "overwrite:path" = "$request.path"
+  }
 }
 
 resource "aws_apigatewayv2_route" "lambda_route" {
