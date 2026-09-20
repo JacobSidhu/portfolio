@@ -33,12 +33,12 @@ jobs:
 
       - name: Check contact API URL
         env:
-          API_CONTACT_URL: ${{ vars.API_CONTACT_URL }}
+          API_CONTACT_URL: ${{ secrets.API_CONTACT_URL }}
         run: test -n "$API_CONTACT_URL"
 
       - name: Build frontend
         env:
-          VITE_API_CONTACT_URL: ${{ vars.API_CONTACT_URL }}
+          VITE_API_CONTACT_URL: ${{ secrets.API_CONTACT_URL }}
         run: npm run build
 
       - name: Set up Terraform
