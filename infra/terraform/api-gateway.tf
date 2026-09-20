@@ -32,7 +32,7 @@ resource "aws_apigatewayv2_route" "lambda_route" {
 
 resource "aws_apigatewayv2_route" "s3_index" {
   api_id    = aws_apigatewayv2_api.api.id
-  route_key = "GET /"
+  route_key = "GET /{proxy+}"
   target    = "integrations/${aws_apigatewayv2_integration.s3_index_integration.id}"
 }
 
