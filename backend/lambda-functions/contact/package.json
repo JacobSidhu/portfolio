@@ -1,0 +1,16 @@
+{
+  "name": "contact",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --check index.js"
+  },
+  "keywords": [],
+  "author": "Jacob Sidhu",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@aws-sdk/client-sesv2": "^3.1136.0"
+  }
+}
