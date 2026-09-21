@@ -157,6 +157,9 @@ h1, h2, h3, h4 { font-family: 'Manrope', system-ui, sans-serif; }
 .learning-certification-card { display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: center; gap: 16px 28px; padding: 24px; }
 .learning-certification-media { grid-row: span 2; padding: 0; background: white; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; cursor: zoom-in; }
 .learning-certification-media img { width: 100%; }
+.learning-certification-symbol { display: grid; place-items: center; align-content: center; gap: 12px; min-height: 128px; padding: 22px; background: linear-gradient(145deg, #f9fbff, #eef3fb); cursor: default; }
+.learning-certification-symbol img { width: 64px; height: 64px; object-fit: contain; }
+.learning-certification-symbol figcaption { color: #536176; font-size: 9px; font-weight: 800; letter-spacing: .12em; text-align: center; text-transform: uppercase; }
 .learning-certification-copy h3 { font-size: 20px; line-height: 1.4; margin-bottom: 10px; }
 .learning-certification-copy p { font-size: 13px; color: var(--muted); }
 .learning-certification-date { font-size: 11px; color: var(--accent); }
