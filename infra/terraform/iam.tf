@@ -1,16 +1,20 @@
+data "aws_caller_identity" "current" {}
+
 resource "aws_iam_role" "lambda_exec" {
   name = "portfolio-role-lambda-exec"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
+
     Statement = [
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
+
         Principal = {
           Service = "lambda.amazonaws.com"
         }
-      },
+      }
     ]
   })
 }
@@ -18,4 +22,28 @@ resource "aws_iam_role" "lambda_exec" {
 resource "aws_iam_role_policy_attachment" "lambda_exec_policy" {
   role       = aws_iam_role.lambda_exec.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+resource "aws_iam_role_policy" "lambda_ses_send" {
+  name = "portfolio-lambda-ses-send"
+  role = aws_iam_role.lambda_exec.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
+      {
+        Sid      = "SendPortfolioEmail"
+        Effect   = "Allow"
+        Action   = "ses:SendEmail"
+        Resource = "arn:aws:ses:${var.aws_region}:${data.aws_caller_identity.current.account_id}:identity/jacobsidhu.com"
+
+        Condition = {
+          StringEquals = {
+            "ses:FromAddress" = var.ses_from_email
+          }
+        }
+      }
+    ]
+  })
 }
