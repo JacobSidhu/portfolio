@@ -563,7 +563,7 @@ function setupContactForm() {
 
     try {
       if (!API_CONTACT_URL) {
-        setStatus("The contact form is currently unavailable. Please email Jacobsidhu@hotmail.com directly.");
+        setStatus("The contact form is currently unavailable. Please connect with me through one of my social profiles.");
         return;
       }
 
@@ -594,7 +594,7 @@ function setupContactForm() {
         setStatus("The request timed out. Please try again.");
       } else {
         console.error("Contact form error:", error);
-        setStatus("The message could not be sent. Please try again or email me directly.");
+        setStatus("The message could not be sent. Please try again or connect with me through one of my social profiles.");
       }
     } finally {
       clearTimeout(timeoutId);

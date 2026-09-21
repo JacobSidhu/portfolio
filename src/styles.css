@@ -186,14 +186,31 @@ h1, h2, h3, h4 { font-family: 'Manrope', system-ui, sans-serif; }
 .contact-success-toast button::before, .contact-success-toast button::after { content: ''; position: absolute; top: 50%; left: 50%; width: 13px; height: 1.5px; background: #4e6859; transform: translate(-50%, -50%) rotate(45deg); }
 .contact-success-toast button::after { transform: translate(-50%, -50%) rotate(-45deg); }
 .contact-card { padding: 30px; }
-.contact-card h2 { font-size: 23px; letter-spacing: -.03em; }
-.contact-card ul { display: grid; gap: 20px; list-style: none; padding: 26px 0; margin: 0; border-bottom: 1px solid var(--line); }
-.contact-card li { display: flex; align-items: center; gap: 12px; font-size: 13px; overflow-wrap: anywhere; }
-.contact-card li img, .availability-label img, .location-label img { width: 18px; height: 18px; object-fit: contain; opacity: .65; flex-shrink: 0; }
-.contact-card > p { font-size: 12px; color: var(--muted); margin-top: 20px; }
-.availability-label, .location-label { display: flex; align-items: center; gap: 10px; }
-.map-link { display: block; border-radius: 12px; overflow: hidden; margin-top: 14px; border: 1px solid var(--line); }
-.map-image { width: 100%; aspect-ratio: 1.9; object-fit: cover; }
+.social-contact-card { position: relative; overflow: hidden; background: linear-gradient(155deg, #fff 0%, #f5f7fc 100%); }
+.social-contact-card::before { content: ''; position: absolute; top: -110px; right: -90px; width: 230px; height: 230px; border-radius: 50%; background: radial-gradient(circle, #6f8fe726 0%, #6f8fe700 70%); pointer-events: none; }
+.social-contact-card h2 { position: relative; font-size: 27px; letter-spacing: -.04em; }
+.social-contact-eyebrow { position: relative; margin-bottom: 12px; color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .14em; }
+.social-contact-intro { position: relative; max-width: 360px; margin-top: 12px; color: var(--muted); font-size: 13px; line-height: 1.65; }
+.contact-social-list { position: relative; display: grid; gap: 10px; margin-top: 26px; }
+.contact-social-link { --platform: var(--accent); display: grid; grid-template-columns: 42px minmax(0, 1fr) 28px; align-items: center; gap: 13px; min-height: 66px; padding: 11px 12px; border: 1px solid #dfe4ed; border-radius: 13px; background: #ffffffd9; box-shadow: 0 4px 14px #24324a08; transition: border-color 180ms, box-shadow 180ms, transform 180ms; }
+.contact-social-link:hover, .contact-social-link:focus-visible { border-color: color-mix(in srgb, var(--platform) 42%, #dfe4ed); box-shadow: 0 9px 22px #24324a12; transform: translateX(4px); outline: none; }
+.contact-social-link.instagram { --platform: #d94679; }
+.contact-social-link.facebook { --platform: #1877f2; }
+.contact-social-link.whatsapp { --platform: #25a967; }
+.contact-social-link.linkedin { --platform: #0a66c2; }
+.contact-social-link.github { --platform: #24292f; }
+.contact-social-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: color-mix(in srgb, var(--platform) 11%, white); color: var(--platform); }
+.contact-social-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.9; }
+.contact-social-icon svg .social-icon-dot { fill: currentColor; stroke: none; }
+.contact-social-icon img { width: 22px; height: 22px; object-fit: contain; }
+.contact-social-letter { font-family: Arial, sans-serif; font-size: 27px; font-weight: 800; line-height: 1; }
+.contact-social-copy { display: grid; gap: 3px; min-width: 0; }
+.contact-social-copy strong { color: var(--ink); font-size: 13px; }
+.contact-social-copy small { overflow: hidden; color: var(--muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.contact-social-arrow { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; color: var(--platform); background: color-mix(in srgb, var(--platform) 9%, white); font-size: 14px; transition: transform 180ms; }
+.contact-social-link:hover .contact-social-arrow, .contact-social-link:focus-visible .contact-social-arrow { transform: translate(2px, -2px); }
+.social-contact-note { position: relative; display: flex; align-items: center; gap: 9px; margin-top: 22px; padding-top: 19px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+.social-contact-note > span { width: 8px; height: 8px; border-radius: 50%; background: #33a06f; box-shadow: 0 0 0 4px #33a06f17; }
 /* Previews remain usable with a keyboard and on small screens. */
 .certificate-dialog, .image-dialog { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px; }
 .certificate-backdrop { position: absolute; inset: 0; background: #132237ad; backdrop-filter: blur(8px); }
