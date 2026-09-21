@@ -40,7 +40,10 @@ resource "aws_iam_role_policy" "lambda_ses_send" {
 
         Condition = {
           StringEquals = {
-            "ses:FromAddress" = var.ses_from_email
+            "ses:FromAddress" = [
+              var.ses_from_email,
+              var.ses_auto_reply_from_email
+            ]
           }
         }
       }
