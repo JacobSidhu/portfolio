@@ -19,6 +19,7 @@ resource "aws_lambda_function" "portfolio_lambda" {
     variables = {
       SES_FROM_EMAIL          = var.ses_from_email
       CONTACT_RECIPIENT_EMAIL = var.contact_recipient_email
+      SES_AUTO_REPLY_FROM_EMAIL = var.ses_auto_reply_from_email
     }
   }
 }
