@@ -26,3 +26,15 @@ variable "portfolio_domain_name" {
   type        = string
   default     = "www.jacobsidhu.com"
 }
+
+variable "ses_from_email" {
+  description = "Verified SES sender address."
+  type        = string
+  default     = "auto-reply@jacobsidhu.com"
+}
+
+variable "contact_recipient_email" {
+  description = "Email address that receives portfolio contact messages."
+  type        = string
+  sensitive   = true
+}
