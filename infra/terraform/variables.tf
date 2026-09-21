@@ -30,7 +30,7 @@ variable "portfolio_domain_name" {
 variable "ses_from_email" {
   description = "Verified SES sender address."
   type        = string
-  default     = "auto-reply@jacobsidhu.com"
+  default     = "portfolio@jacobsidhu.com"
 }
 
 variable "contact_recipient_email" {
