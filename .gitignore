@@ -10,6 +10,7 @@ dist/
 *.tfvars
 .terraform/
 .terraform.lock.hcl
+infra/terraform/lambda.zip
 
 .tmp-*/
 *.log
