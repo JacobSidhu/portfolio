@@ -25,11 +25,22 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            backend/lambda-functions/contact/package-lock.json
 
       - name: Install Node dependencies
         run: npm ci
+
+      - name: Install Lambda dependencies
+        working-directory: backend/lambda-functions/contact
+        run: npm ci --omit=dev
+
+      - name: Validate Lambda handler
+        working-directory: backend/lambda-functions/contact
+        run: npm test
 
       - name: Check contact API URL
         env:
