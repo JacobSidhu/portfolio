@@ -480,12 +480,44 @@ function setupContactForm() {
   const form = document.getElementById("contact-form");
   const submitButton = form.querySelector('button[type="submit"]');
   const status = form.querySelector('.form-status');
-  const setStatus = (message, state = 'error') => {
+  const successToast = document.querySelector('[data-contact-success-toast]');
+  const successToastClose = successToast.querySelector('[data-contact-success-close]');
+  let statusTimerId = null;
+  let successTimerId = null;
+
+  const hideStatus = () => {
+    clearTimeout(statusTimerId);
+    statusTimerId = null;
+    status.hidden = true;
+    status.textContent = '';
+    delete status.dataset.state;
+  };
+
+  const setStatus = (message, state = 'error', autoHide = state === 'error') => {
+    clearTimeout(statusTimerId);
     status.hidden = false;
     status.textContent = message;
     status.dataset.state = state;
+
+    if (autoHide) {
+      statusTimerId = setTimeout(hideStatus, 60000);
+    }
   };
-  form.addEventListener('reset', () => { status.hidden = true; });
+
+  const hideSuccessToast = () => {
+    clearTimeout(successTimerId);
+    successTimerId = null;
+    successToast.hidden = true;
+  };
+
+  const showSuccessToast = () => {
+    clearTimeout(successTimerId);
+    successToast.hidden = false;
+    successTimerId = setTimeout(hideSuccessToast, 60000);
+  };
+
+  form.addEventListener('reset', hideStatus);
+  successToastClose.addEventListener('click', hideSuccessToast);
 
   const API_CONTACT_URL = import.meta.env.VITE_API_CONTACT_URL || "";
 
@@ -537,7 +569,7 @@ function setupContactForm() {
 
       submitButton.disabled = true;
       submitButton.textContent = "Sending...";
-      setStatus('Sending your message…', 'pending');
+      setStatus('Sending your message...', 'pending', false);
 
       const response = await fetch(API_CONTACT_URL, {
         method: "POST",
@@ -555,7 +587,8 @@ function setupContactForm() {
       }
 
       form.reset();
-      setStatus("Thanks for reaching out. Your message has been sent.", 'success');
+      activateTab('home');
+      showSuccessToast();
     } catch (error) {
       if (error.name === "AbortError") {
         setStatus("The request timed out. Please try again.");
