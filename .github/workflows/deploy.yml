@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   build-and-validate:
@@ -20,16 +20,27 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_CLI_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_CLI_SECRET }}
-          aws-region: ${{ secrets.AWS_REGION }}  
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            backend/lambda-functions/contact/package-lock.json
 
       - name: Install Node dependencies
         run: npm ci
+
+      - name: Install Lambda dependencies
+        working-directory: backend/lambda-functions/contact
+        run: npm ci --omit=dev
+
+      - name: Validate Lambda handler
+        working-directory: backend/lambda-functions/contact
+        run: npm test
 
       - name: Check contact API URL
         env:
@@ -62,11 +73,12 @@ jobs:
         working-directory: infra/terraform
         env:
           TF_VAR_portfolio_bucket_name: ${{ vars.PORTFOLIO_BUCKET_NAME }}
+          TF_VAR_contact_recipient_email: ${{ secrets.CONTACT_RECIPIENT_EMAIL }}
         run: terraform plan -input=false -out=tfplan
 
       - name: Apply Terraform
         working-directory: infra/terraform
         env:
           TF_VAR_portfolio_bucket_name: ${{ vars.PORTFOLIO_BUCKET_NAME }}
+          TF_VAR_contact_recipient_email: ${{ secrets.CONTACT_RECIPIENT_EMAIL }}
         run: terraform apply -input=false tfplan
-
