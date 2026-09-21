@@ -13,6 +13,14 @@ resource "aws_lambda_function" "portfolio_lambda" {
 
   handler = "index.handler"
   runtime = "nodejs22.x"
+  timeout = 10
+
+  environment {
+    variables = {
+      SES_FROM_EMAIL          = var.ses_from_email
+      CONTACT_RECIPIENT_EMAIL = var.contact_recipient_email
+    }
+  }
 }
 
 resource "aws_lambda_permission" "apigw_lambda" {
