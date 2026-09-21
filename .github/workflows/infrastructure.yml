@@ -32,12 +32,25 @@ jobs:
         if: github.event.inputs.action == 'apply'
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            backend/lambda-functions/contact/package-lock.json
 
       - name: Install Node dependencies
         if: github.event.inputs.action == 'apply'
         run: npm ci
+
+      - name: Install Lambda dependencies
+        if: github.event.inputs.action == 'apply'
+        working-directory: backend/lambda-functions/contact
+        run: npm ci --omit=dev
+
+      - name: Validate Lambda handler
+        if: github.event.inputs.action == 'apply'
+        working-directory: backend/lambda-functions/contact
+        run: npm test
 
       - name: Check contact API URL
         if: github.event.inputs.action == 'apply'
@@ -73,6 +86,7 @@ jobs:
         working-directory: infra/terraform
         env:
           TF_VAR_portfolio_bucket_name: ${{ vars.PORTFOLIO_BUCKET_NAME }}
+          TF_VAR_contact_recipient_email: ${{ secrets.CONTACT_RECIPIENT_EMAIL }}
         run: terraform plan -input=false -out=tfplan
 
       - name: Apply Terraform
@@ -80,6 +94,7 @@ jobs:
         working-directory: infra/terraform
         env:
           TF_VAR_portfolio_bucket_name: ${{ vars.PORTFOLIO_BUCKET_NAME }}
+          TF_VAR_contact_recipient_email: ${{ secrets.CONTACT_RECIPIENT_EMAIL }}
         run: terraform apply -input=false tfplan
 
       - name: Show Destroy Plan
@@ -87,6 +102,7 @@ jobs:
         working-directory: infra/terraform
         env:
           TF_VAR_portfolio_bucket_name: ${{ vars.PORTFOLIO_BUCKET_NAME }}
+          TF_VAR_contact_recipient_email: ${{ secrets.CONTACT_RECIPIENT_EMAIL }}
         run: terraform plan -destroy -input=false
 
       - name: Destroy Terraform Resources
@@ -94,4 +110,5 @@ jobs:
         working-directory: infra/terraform
         env:
           TF_VAR_portfolio_bucket_name: ${{ vars.PORTFOLIO_BUCKET_NAME }}
+          TF_VAR_contact_recipient_email: ${{ secrets.CONTACT_RECIPIENT_EMAIL }}
         run: terraform destroy -auto-approve -input=false
