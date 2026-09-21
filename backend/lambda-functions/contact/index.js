@@ -84,6 +84,48 @@ async function sendOwnerNotification(contactData) {
   return ses.send(command);
 }
 
+async function sendVisitorAutoReply(contactData) {
+  const fromEmail = process.env.SES_AUTO_REPLY_FROM_EMAIL;
+
+  if (!fromEmail) {
+    throw new Error("SES auto-reply configuration is missing.");
+  }
+
+  const visitorName = contactData.name || "there";
+
+  const command = new SendEmailCommand({
+    FromEmailAddress: fromEmail,
+    Destination: {
+      ToAddresses: [contactData.email],
+    },
+    Content: {
+      Simple: {
+        Subject: {
+          Data: "Thanks for contacting Jacob Sidhu",
+          Charset: "UTF-8",
+        },
+        Body: {
+          Text: {
+            Data: [
+              `Hi ${visitorName},`,
+              "",
+              "Thank you for getting in touch. I’ve received your message and will respond as soon as possible.",
+              "",
+              "Best regards,",
+              "Jacob Sidhu",
+              "",
+              "This is an automated acknowledgement. Please do not reply to this email.",
+            ].join("\n"),
+            Charset: "UTF-8",
+          },
+        },
+      },
+    },
+  });
+
+  return ses.send(command);
+}
+
 exports.handler = async (event) => {
   const method = getMethod(event);
 
@@ -131,11 +173,24 @@ exports.handler = async (event) => {
   }
 
   try {
-    const result = await sendOwnerNotification(contactData);
+    const ownerResult = await sendOwnerNotification(contactData);
 
-    console.log("Contact email sent:", {
-      messageId: result.MessageId,
+    console.log("Owner notification sent:", {
+      messageId: ownerResult.MessageId,
     });
+
+    try {
+      const autoReplyResult = await sendVisitorAutoReply(contactData);
+
+      console.log("Visitor auto-reply sent:", {
+        messageId: autoReplyResult.MessageId,
+      });
+    } catch (autoReplyError) {
+      console.error("Visitor auto-reply failed:", {
+        name: autoReplyError.name,
+        message: autoReplyError.message,
+      });
+    }
 
     return response(200, {
       message: "Your message has been sent.",
