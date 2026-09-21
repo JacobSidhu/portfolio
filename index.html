@@ -896,6 +896,22 @@
         </aside>
       </section>
 
+      <div
+        class="contact-success-toast"
+        data-contact-success-toast
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        hidden
+      >
+        <span class="contact-success-icon" aria-hidden="true"></span>
+        <div>
+          <strong>Message sent successfully.</strong>
+          <p>Thanks for reaching out. I&rsquo;ll get back to you soon.</p>
+        </div>
+        <button type="button" data-contact-success-close aria-label="Dismiss success message"></button>
+      </div>
+
       <div class="certificate-dialog" data-cert-dialog hidden>
         <div class="certificate-backdrop" data-cert-dialog-close></div>
         <section class="certificate-modal" role="dialog" aria-modal="true" aria-label="Terraform Associate certificate preview" tabindex="-1">
