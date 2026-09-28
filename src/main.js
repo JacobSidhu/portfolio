@@ -623,7 +623,7 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
 }
 
 document.querySelectorAll('.certification-segmented-control [role="tab"]').forEach((tab, index, tabs) => {
-  tab.tabIndex = index === 0 ? 0 : -1;
+  tab.tabIndex = tab.classList.contains('active') && !tab.disabled ? 0 : -1;
   const view = document.querySelector(`[data-certification-view="${tab.dataset.certificationViewTrigger}"]`);
   tab.id = `cert-tab-${index}`;
   view.id = `cert-view-${index}`;
@@ -634,7 +634,13 @@ document.querySelectorAll('.certification-segmented-control [role="tab"]').forEa
   tab.addEventListener('keydown', (event) => {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault();
-    const next = event.key === 'Home' ? tabs[0] : event.key === 'End' ? tabs[tabs.length - 1] : tabs[(index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+    const enabledTabs = [...tabs].filter((item) => !item.disabled);
+    const currentIndex = enabledTabs.indexOf(tab);
+    const next = event.key === 'Home'
+      ? enabledTabs[0]
+      : event.key === 'End'
+        ? enabledTabs[enabledTabs.length - 1]
+        : enabledTabs[(currentIndex + (event.key === 'ArrowRight' ? 1 : -1) + enabledTabs.length) % enabledTabs.length];
     next.click();
     next.focus();
   });

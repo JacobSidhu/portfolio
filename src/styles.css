@@ -146,6 +146,8 @@ h1, h2, h3, h4 { font-family: 'Manrope', system-ui, sans-serif; }
 .certification-segmented-control { display: flex; flex-shrink: 0; gap: 4px; background: #e9edf3; border: 1px solid var(--line); border-radius: 12px; padding: 4px; }
 .certification-segmented-control button { padding: 10px 19px; min-height: 40px; border-radius: 8px; background: transparent; font-size: 12px; color: var(--muted); transition: background 200ms, box-shadow 200ms; }
 .certification-segmented-control button.active { background: white; color: var(--ink); box-shadow: 0 2px 7px #202b3810; }
+.certification-segmented-control button:disabled { display: inline-flex; align-items: center; gap: 8px; color: #8a94a3; cursor: not-allowed; }
+.segment-status { padding: 3px 6px; border: 1px solid #cfd6e1; border-radius: 999px; font-size: 8px; font-weight: 700; letter-spacing: .06em; line-height: 1; text-transform: uppercase; }
 .certification-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .certification-card { display: grid; grid-template-columns: 120px minmax(0, 1fr); align-items: center; gap: 26px; padding: 30px; }
 .certification-badge { margin: 0; }

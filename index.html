@@ -701,12 +701,21 @@
             </p>
           </div>
           <div class="certification-segmented-control" role="tablist" aria-label="Certification status">
-            <button class="active" type="button" role="tab" aria-selected="true" data-certification-view-trigger="credited">Credited</button>
-            <button type="button" role="tab" aria-selected="false" data-certification-view-trigger="learning">Learning</button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-disabled="true"
+              data-certification-view-trigger="credited"
+              disabled
+            >
+              Credited <span class="segment-status">Coming soon</span>
+            </button>
+            <button class="active" type="button" role="tab" aria-selected="true" data-certification-view-trigger="learning">Learning</button>
           </div>
         </header>
 
-        <div class="certification-grid" aria-label="Certification highlights" data-certification-view="credited">
+        <div class="certification-grid" aria-label="Certification highlights" data-certification-view="credited" hidden>
           <article class="certification-card">
             <figure class="certification-badge">
               <img src="/assets/cert-terraform-associate-cropped.png" alt="Terraform Certified Associate badge">
@@ -759,7 +768,7 @@
           </article>
         </div>
 
-        <div class="certification-learning-list" data-certification-view="learning" hidden>
+        <div class="certification-learning-list" data-certification-view="learning">
           <article class="learning-certification-card">
             <figure class="learning-certification-media learning-certification-symbol" aria-hidden="true">
               <img src="/assets/skill-set-logos/security/network-security.png" alt="">
