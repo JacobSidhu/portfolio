@@ -1,0 +1,30 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - ui/home
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: development-CI
+  cancel-in-progress: true
+
+jobs:
+  build-and-validate:
+    name: Build Site And Validate Terraform
+    runs-on: ubuntu-latest
+    environment: dev
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Terraform Init
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.0.0
+        working-directory: infra/terraform/envs/dev
+        run: terraform init
