@@ -1,0 +1,40 @@
+name: Bootstrap Terraform Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'infra/terraform/bootstrap/**'
+      - '.github/workflows/bootstrap.yml'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  bootstrap-terraform-validation:
+    name: Build Site And Validate Terraform
+    runs-on: ubuntu-latest
+    environment: dev
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.0
+
+      - name: Terraform Init
+        working-directory: infra/terraform/bootstrap
+        run: terraform init -backend=false
+
+      - name: Terraform Format Check
+        working-directory: infra/terraform/bootstrap
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        working-directory: infra/terraform/bootstrap
+        run: terraform validate
