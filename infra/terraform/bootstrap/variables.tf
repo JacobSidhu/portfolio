@@ -22,3 +22,12 @@ variable "environment" {
     error_message = "The environment must be either 'dev', 'stag', or 'prod'."
   }
 }
+variable "github_owner" {
+  description = "The name of the GitHub owner"
+  type        = string
+}
+
+variable "github_repository" {
+  description = "The name of the GitHub repository"
+  type        = string
+}
