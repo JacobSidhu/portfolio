@@ -51,6 +51,17 @@ data "aws_iam_policy_document" "lambda_execution_permission" {
   }
 }
 
+# GitHub now puts the owner and repo IDs in the OIDC subject
+# (repo:Owner@123/repo@456:...), so look them up instead of hard-coding them.
+# Pinning the IDs means a renamed or re-registered repo can't match this trust.
+data "github_user" "owner" {
+  username = var.github_owner
+}
+
+data "github_repository" "this" {
+  full_name = "${var.github_owner}/${var.github_repository}"
+}
+
 data "aws_iam_policy_document" "trust" {
   statement {
     effect  = "Allow"
@@ -67,10 +78,13 @@ data "aws_iam_policy_document" "trust" {
       values   = ["sts.amazonaws.com"]
     }
 
+    # Only jobs running in this repo's GitHub environment for the selected stage.
     condition {
-      test     = "StringLike"
+      test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_owner}/${var.github_repository}:environment:${var.environment}"]
+      values = [
+        "repo:${data.github_user.owner.login}@${data.github_user.owner.id}/${data.github_repository.this.name}@${data.github_repository.this.repo_id}:environment:${var.environment}"
+      ]
     }
   }
 }
