@@ -1,0 +1,50 @@
+/* Hero: intro text, buttons, photo frame and the stats column. */
+
+/* ---------- hero ---------- */
+.hero{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.95fr) 300px;
+  gap:28px;align-items:start;padding-top:34px;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border:1px solid var(--line);
+  border-radius:12px;background:rgba(10,26,23,.7);font-weight:500;font-size:17px;color:#e8eeeb;
+  white-space:nowrap;position:relative;z-index:2;
+}
+.pill .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+.pill .sep{width:5px;height:5px;border-radius:50%;background:var(--green)}
+h1{
+  font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;
+  font-size:clamp(46px,5.4vw,78px);line-height:1.02;letter-spacing:-2.5px;margin:22px 0 22px;
+}
+h1 .accent{color:var(--green)}
+.lede{font-size:clamp(17px,1.5vw,21px);line-height:1.5;color:#d3dcd8;max-width:560px}
+.cta{display:flex;gap:22px;margin-top:30px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:14px;padding:15px 32px;border-radius:12px;
+  font-weight:700;font-size:19px;transition:transform .15s, box-shadow .2s, background .2s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--green);color:#04130b;box-shadow:0 10px 30px rgba(53,224,92,.25)}
+.btn-primary:hover{box-shadow:0 14px 40px rgba(53,224,92,.4)}
+.btn-ghost{border:1.5px solid rgba(255,255,255,.85);color:#fff}
+.btn-ghost:hover{border-color:var(--green)}
+
+.photo{position:relative;margin-top:40px;--dur:1s}
+.photo svg{width:100%;height:auto;overflow:visible}
+.frame-path{filter:drop-shadow(0 0 14px rgba(53,224,92,.55)) drop-shadow(0 0 2px rgba(53,224,92,.9));animation:frame-glow 4.5s ease-in-out 1.15s infinite}
+@keyframes frame-glow{
+  0%,100%{filter:drop-shadow(0 0 14px rgba(53,224,92,.55)) drop-shadow(0 0 2px rgba(53,224,92,.9))}
+  50%{filter:drop-shadow(0 0 30px rgba(53,224,92,.95)) drop-shadow(0 0 5px rgba(53,224,92,1))}
+}
+
+/* ---------- stats (hero side column; becomes a row below the hero on narrower screens) ---------- */
+.stats{display:flex;flex-direction:column;gap:18px;margin-top:28px}
+.stat{
+  display:flex;align-items:center;gap:20px;padding:16px 24px;min-height:84px;border-radius:14px;
+  border:1px solid var(--line);background:var(--card);backdrop-filter:blur(6px);
+  transition:border-color .2s, transform .2s;
+}
+.stat:hover{border-color:rgba(53,224,92,.6);transform:translateX(-4px)}
+.stat svg{width:42px;height:38px;flex:none}
+.stat strong{display:block;font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:21px}
+.stat span{display:block;color:#c9d3cf;font-size:15.5px;margin-top:4px}
