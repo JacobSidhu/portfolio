@@ -1,0 +1,19 @@
+/* ---------- ribbon ---------- */
+/* full-width band outside .wrap; the clip box stops the tilted ribbon causing sideways scroll */
+.ribbon-clip{position:relative;z-index:1;overflow:hidden;padding:calc(2vw + 34px) 0 calc(2vw + 44px)}
+.ribbon{
+  margin:0 -3%;padding:18px 0;overflow:hidden;
+  transform:rotate(-2deg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.05);backdrop-filter:blur(6px);
+}
+.ribbon-track{display:flex;width:max-content;animation:ribbon-slide 45s linear infinite}
+.ribbon:hover .ribbon-track{animation-play-state:paused}
+.ribbon-group{display:flex;flex:none;list-style:none}
+.ribbon-group li{
+  display:flex;align-items:center;gap:.32em;padding-right:clamp(32px,4.5vw,64px);white-space:nowrap;line-height:1.1;
+  font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:clamp(36px,5vw,64px);letter-spacing:-1.5px;
+  color:transparent;-webkit-text-stroke:1.5px rgba(242,246,244,.6);transition:color .25s,-webkit-text-stroke-color .25s;
+}
+.ribbon-ico{height:.8em;width:auto;flex:none}
+.ribbon-group li:hover{color:var(--text);-webkit-text-stroke-color:var(--text)}
+@keyframes ribbon-slide{to{transform:translateX(-50%)}}
