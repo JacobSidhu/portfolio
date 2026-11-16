@@ -1,0 +1,17 @@
+/* ---------- pages: one panel shows at a time; switching animates only the current and the chosen panel ---------- */
+.pages{position:relative;z-index:1;overflow-x:clip}
+.page{display:none}
+.page.is-active{display:block}
+/* The panel being left sits on top of the new one while it fades away, then is hidden again. */
+.page.is-leaving{display:block;position:absolute;top:0;left:0;right:0;pointer-events:none;animation:panel-out .5s ease-in forwards}
+@keyframes panel-out{to{opacity:0}}
+
+/* ---------- staggered entrance: each element fades and slides in 80ms after the previous one ---------- */
+/* --i is the element's position in its panel; --dx / --dy set the direction it travels in from. */
+.is-active .reveal{
+  animation:reveal-in var(--dur,.7s) cubic-bezier(.2,.7,.2,1) calc(var(--i,0) * 80ms) backwards;
+}
+@keyframes reveal-in{from{opacity:0;transform:translate(var(--dx,0px),var(--dy,0px))}}
+/* The panel being left fades its elements out the same way, drifting towards --ox. */
+.is-leaving .reveal{animation:reveal-out .4s ease-in calc(var(--i,0) * 80ms) forwards}
+@keyframes reveal-out{to{opacity:0;transform:translateX(var(--ox,0px))}}
