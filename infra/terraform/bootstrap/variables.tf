@@ -3,12 +3,42 @@ variable "aws_region" {
   type        = string
 }
 
-variable "bootstrap_bucket_name" {
+variable "terraform_role_name" {
+  description = "The name of the Terraform role"
+  type        = string
+}
+
+variable "lambda_role_name" {
+  description = "The name of the Lambda role"
+  type        = string
+}
+
+variable "terraform_policy_name" {
+  description = "Full name of the Terraform deployment IAM policy."
+  type        = string
+}
+
+variable "lambda_policy_name" {
+  description = "Full name of the Lambda SES sending IAM policy."
+  type        = string
+}
+
+variable "site_bucket_name" {
+  description = "Full name of the website hosting bucket."
+  type        = string
+}
+
+variable "site_state_key" {
+  description = "S3 object key for the main infrastructure Terraform state."
+  type        = string
+}
+
+variable "bootstrap_state_bucket_name" {
   description = "The name of the S3 bucket"
   type        = string
 }
 
-variable "state_bucket_name" {
+variable "site_state_bucket_name" {
   description = "The name of the S3 bucket"
   type        = string
 }
@@ -29,5 +59,15 @@ variable "github_owner" {
 
 variable "github_repository" {
   description = "The name of the GitHub repository"
+  type        = string
+}
+
+variable "ses_from_email" {
+  description = "The email address to use as the 'From' address for SES"
+  type        = string
+}
+
+variable "ses_auto_reply_from_email" {
+  description = "The email address to use as the 'From' address for SES auto-reply"
   type        = string
 }
