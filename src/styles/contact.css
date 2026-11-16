@@ -1,0 +1,54 @@
+/* Contact details, the form and the social links. */
+
+/* ---------- contact ---------- */
+.contact{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:56px;align-items:start;padding:34px 0 0}
+.contact h2{
+  font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;
+  font-size:clamp(34px,4.2vw,62px);line-height:1.05;letter-spacing:-2px;margin:0 0 20px;
+}
+.contact h2 .accent{color:var(--green)}
+.contact-lede{font-size:clamp(16.5px,1.25vw,18.5px);line-height:1.65;color:#c3cec9;max-width:480px}
+.contact-list{display:flex;flex-direction:column;gap:14px;list-style:none;margin-top:30px}
+.contact-item,.contact-item a{display:flex;align-items:center;gap:18px}
+.contact-item{padding:16px 22px;border-radius:14px;border:1px solid var(--line);background:var(--card);backdrop-filter:blur(6px);transition:border-color .2s}
+.contact-item:has(a):hover{border-color:rgba(53,224,92,.6)}
+.contact-item a{flex:1}
+.contact-item svg{flex:none}
+.contact-item strong{display:block;font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:18px}
+.contact-item span{display:block;color:#c9d3cf;font-size:14.5px;margin-top:3px}
+.contact-form{
+  display:flex;flex-direction:column;gap:18px;padding:30px;border-radius:20px;
+  border:1px solid var(--line);background:var(--card);backdrop-filter:blur(6px);
+}
+.contact-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.contact-field{display:flex;flex-direction:column;gap:8px}
+.contact-field > span{font-weight:600;font-size:15px;color:#dfe7e3}
+.contact-field em{font-style:normal;color:var(--green)}
+.contact-field input,.contact-field textarea{
+  width:100%;padding:13px 15px;border-radius:12px;border:1px solid var(--line);background:rgba(4,16,14,.7);
+  color:var(--text);font:inherit;font-size:16px;transition:border-color .2s, box-shadow .2s;
+}
+.contact-field textarea{resize:vertical;min-height:150px}
+.contact-field input:focus,.contact-field textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(53,224,92,.18)}
+.contact-field.invalid input,.contact-field.invalid textarea{border-color:#ff6b6b}
+.contact-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:4px}
+.contact-actions .btn{border:0;cursor:pointer;font-family:inherit}
+.contact-actions .btn[disabled]{opacity:.6;cursor:progress;transform:none}
+.contact-status{font-size:15.5px;color:#c3cec9}
+.contact-status.ok{color:var(--green)}
+.contact-status.err{color:#ff8a8a}
+.socials{padding:44px 0 80px}
+.socials h3{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:13.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--green);margin-bottom:16px}
+.social-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;list-style:none}
+.social-card{
+  display:flex;align-items:center;gap:18px;padding:18px 22px;border-radius:14px;
+  border:1px solid var(--line);background:var(--card);backdrop-filter:blur(6px);
+  transition:border-color .2s, transform .2s;
+}
+.social-card:hover{border-color:rgba(53,224,92,.6);transform:translateY(-3px)}
+.social-card svg{flex:none}
+.social-card div{flex:1;min-width:0}
+.social-card strong{display:block;font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:18px}
+.social-card span{display:block;color:#c9d3cf;font-size:14.5px;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.social-arrow{color:#c9d3cf;transition:color .2s, transform .2s}
+.social-card:hover .social-arrow{color:var(--green);transform:translate(2px,-2px)}
