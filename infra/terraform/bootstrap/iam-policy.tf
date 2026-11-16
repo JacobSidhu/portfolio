@@ -4,6 +4,20 @@ data "aws_iam_openid_connect_provider" "github" {
 
 data "aws_caller_identity" "current" {}
 
+locals {
+  account_id = data.aws_caller_identity.current.account_id
+
+  # envs/<env> names its Lambda "<env>-portfolio-contact" and its API
+  # "<env>-portfolio-api". Scoping to this prefix keeps the dev role away
+  # from prod's resources.
+  resource_prefix = "${var.environment}-portfolio-"
+
+  # SES identity the site sends from. Shared by every environment in the account.
+  ses_identity_arn = "arn:aws:ses:${var.aws_region}:${local.account_id}:identity/jacobsidhu.com"
+
+  lambda_log_group_arn = "arn:aws:logs:${var.aws_region}:${local.account_id}:log-group:/aws/lambda/${local.resource_prefix}*"
+}
+
 data "aws_iam_policy_document" "terraform_permissions" {
 
   statement {
@@ -31,6 +45,131 @@ data "aws_iam_policy_document" "terraform_permissions" {
       "arn:aws:s3:::${var.site_state_bucket_name}/${var.site_state_key}.tflock",
     ]
   }
+
+  # API Gateway uses HTTP verbs on resource paths instead of named actions.
+  # PATCH is how Terraform updates routes, integrations and stages.
+  # /domainnames/* also covers the API mappings under each domain.
+  statement {
+    sid    = "APIGatewayManagement"
+    effect = "Allow"
+    actions = [
+      "apigateway:GET",
+      "apigateway:POST",
+      "apigateway:PUT",
+      "apigateway:PATCH",
+      "apigateway:DELETE",
+    ]
+    resources = [
+      "arn:aws:apigateway:${var.aws_region}::/apis",
+      "arn:aws:apigateway:${var.aws_region}::/apis/*",
+      "arn:aws:apigateway:${var.aws_region}::/domainnames",
+      "arn:aws:apigateway:${var.aws_region}::/domainnames/*",
+      "arn:aws:apigateway:${var.aws_region}::/tags/*",
+    ]
+  }
+
+  statement {
+    sid    = "LambdaManagement"
+    effect = "Allow"
+    actions = [
+      "lambda:CreateFunction",
+      "lambda:DeleteFunction",
+      "lambda:GetFunction",
+      "lambda:GetFunctionConfiguration",
+      "lambda:GetFunctionCodeSigningConfig",
+      "lambda:GetRuntimeManagementConfig",
+      "lambda:UpdateFunctionCode",
+      "lambda:UpdateFunctionConfiguration",
+      "lambda:ListVersionsByFunction",
+      "lambda:AddPermission",
+      "lambda:RemovePermission",
+      "lambda:GetPolicy",
+      "lambda:TagResource",
+      "lambda:UntagResource",
+      "lambda:ListTags",
+    ]
+    resources = [
+      "arn:aws:lambda:${var.aws_region}:${local.account_id}:function:${local.resource_prefix}*",
+    ]
+  }
+
+  # Needed to give the function its execution role. Locked to that one role,
+  # and only when it's being handed to Lambda.
+  statement {
+    sid       = "PassLambdaRole"
+    effect    = "Allow"
+    actions   = ["iam:PassRole"]
+    resources = [aws_iam_role.lambda_exec.arn]
+
+    condition {
+      test     = "StringEquals"
+      variable = "iam:PassedToService"
+      values   = ["lambda.amazonaws.com"]
+    }
+  }
+
+  statement {
+    sid    = "LambdaLogGroups"
+    effect = "Allow"
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:DeleteLogGroup",
+      "logs:PutRetentionPolicy",
+      "logs:DeleteRetentionPolicy",
+      "logs:TagResource",
+      "logs:UntagResource",
+      "logs:ListTagsForResource",
+      "logs:TagLogGroup",
+      "logs:ListTagsLogGroup",
+    ]
+    resources = [
+      local.lambda_log_group_arn,
+      "${local.lambda_log_group_arn}:*",
+    ]
+  }
+
+  # Can't be scoped. It's a list call, and Terraform uses it to read the group back.
+  statement {
+    sid       = "DescribeLogGroups"
+    effect    = "Allow"
+    actions   = ["logs:DescribeLogGroups"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "SESIdentity"
+    effect = "Allow"
+    actions = [
+      "ses:CreateEmailIdentity",
+      "ses:GetEmailIdentity",
+      "ses:DeleteEmailIdentity",
+      "ses:TagResource",
+      "ses:UntagResource",
+      "ses:ListTagsForResource",
+    ]
+    resources = [local.ses_identity_arn]
+  }
+
+  # A certificate has no ARN until it's requested, so this can't be scoped.
+  statement {
+    sid       = "RequestCertificate"
+    effect    = "Allow"
+    actions   = ["acm:RequestCertificate", "acm:AddTagsToCertificate"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "ManageCertificates"
+    effect = "Allow"
+    actions = [
+      "acm:DescribeCertificate",
+      "acm:DeleteCertificate",
+      "acm:ListTagsForCertificate",
+      "acm:AddTagsToCertificate",
+      "acm:RemoveTagsFromCertificate",
+    ]
+    resources = ["arn:aws:acm:${var.aws_region}:${local.account_id}:certificate/*"]
+  }
 }
 
 data "aws_iam_policy_document" "lambda_execution_permission" {
@@ -38,7 +177,7 @@ data "aws_iam_policy_document" "lambda_execution_permission" {
     sid       = "SendPortfolioEmail"
     effect    = "Allow"
     actions   = ["ses:SendEmail"]
-    resources = ["arn:aws:ses:${var.aws_region}:${data.aws_caller_identity.current.account_id}:identity/jacobsidhu.com"]
+    resources = [local.ses_identity_arn]
 
     condition {
       test     = "StringEquals"
@@ -48,6 +187,17 @@ data "aws_iam_policy_document" "lambda_execution_permission" {
         var.ses_auto_reply_from_email,
       ]
     }
+  }
+
+  # Terraform creates the log group, so the function only needs to write to it.
+  statement {
+    sid    = "WriteLogs"
+    effect = "Allow"
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+    ]
+    resources = ["${local.lambda_log_group_arn}:*"]
   }
 }
 
