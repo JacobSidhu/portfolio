@@ -77,3 +77,40 @@ resource "github_actions_environment_variable" "bootstrap_state_bucket_name" {
   variable_name = "BOOTSTRAP_STATE_BUCKET_NAME"
   value         = var.bootstrap_state_bucket_name
 }
+
+# Used by the lambda module in envs/<env>.
+resource "github_actions_environment_variable" "lambda_role_arn" {
+  repository    = var.github_repository
+  environment   = github_repository_environment.this.environment
+  variable_name = "LAMBDA_ROLE_ARN"
+  value         = aws_iam_role.lambda_exec.arn
+}
+
+# Email addresses are secrets so they're masked in workflow logs. The sender
+# addresses come from the same inputs as the Lambda role's ses:FromAddress
+# condition, so the function can only be given addresses it's allowed to use.
+#
+# Values end up in plain text in the bootstrap state file, which is why the
+# state bucket must stay private and encrypted.
+resource "github_actions_environment_secret" "ses_from_email" {
+  repository  = var.github_repository
+  environment = github_repository_environment.this.environment
+  secret_name = "SES_FROM_EMAIL"
+  value       = var.ses_from_email
+}
+
+resource "github_actions_environment_secret" "ses_auto_reply_from_email" {
+  repository  = var.github_repository
+  environment = github_repository_environment.this.environment
+  secret_name = "SES_AUTO_REPLY_FROM_EMAIL"
+  value       = var.ses_auto_reply_from_email
+}
+
+# Overrides the old repository-level CONTACT_RECIPIENT_EMAIL secret for this
+# environment.
+resource "github_actions_environment_secret" "contact_recipient_email" {
+  repository  = var.github_repository
+  environment = github_repository_environment.this.environment
+  secret_name = "CONTACT_RECIPIENT_EMAIL"
+  value       = var.contact_recipient_email
+}
