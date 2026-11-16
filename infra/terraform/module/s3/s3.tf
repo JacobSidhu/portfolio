@@ -1,6 +1,6 @@
 # Hosts the built portfolio site. API Gateway proxies to the website endpoint,
 # so the bucket needs website hosting on and public read access.
-# See README.md in this folder for the full picture.
+# See README.md in this folder for usage.
 
 # Don't rename this resource without a moved block, or Terraform will
 # destroy and recreate the bucket.
