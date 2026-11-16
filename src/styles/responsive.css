@@ -1,0 +1,52 @@
+/* Loaded last so these override the section styles above. */
+
+@media (prefers-reduced-motion:reduce){.ribbon-track,.frame-path,.is-active .reveal,.is-leaving .reveal{animation:none}.page.is-leaving{display:none}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1180px){
+  .hero{grid-template-columns:1fr 1fr}
+  .social-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,1fr);margin-top:0}
+  .stat{padding:16px 18px;gap:16px}
+  .links a{padding:10px 14px}
+}
+@media (max-width:960px){
+  .links,.btn-talk{display:none}
+  .nav-contact{display:list-item}
+  .menu-btn{display:block}
+  nav.open .links{
+    display:flex;flex-direction:column;position:absolute;top:76px;left:20px;right:20px;
+    background:#0a1d19;border:1px solid var(--line);border-radius:16px;padding:10px;z-index:10;
+  }
+  nav{position:relative}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .about{grid-template-columns:1fr;gap:30px;padding-bottom:56px}
+  .contact{grid-template-columns:1fr;gap:34px}
+  .socials{padding:34px 0 56px}
+  .about-cards{padding-top:0}
+}
+@media (max-width:760px){
+  .wrap{padding:0 20px}
+  .hero{grid-template-columns:1fr}
+  .social-grid{grid-template-columns:1fr}
+  .project-grid{grid-template-columns:1fr}
+  .skill-grid{grid-template-columns:1fr}
+  .skills{padding-bottom:56px}
+  .projects{padding-bottom:56px}
+  .photo{max-width:440px;margin:30px auto 0;width:100%}
+  .brand .name{display:none}
+  .brand .divider{display:none}
+  .cta{gap:14px}
+  .btn{padding:14px 22px;font-size:17px}
+  .stat{padding:14px 16px;gap:14px}
+  .pill{font-size:14px;padding:9px 12px;gap:7px}
+  .bg .wave{opacity:.35}
+}
+@media (max-width:480px){
+  .stats{grid-template-columns:1fr}
+  .contact-row{grid-template-columns:1fr}
+  .contact-form{padding:22px 18px}
+  .pill{white-space:normal}
+}
