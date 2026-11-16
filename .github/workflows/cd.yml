@@ -45,6 +45,10 @@ jobs:
       TF_VAR_site_state_bucket_name: ${{ vars.SITE_STATE_BUCKET_NAME }}
       TF_VAR_bootstrap_state_bucket_name: ${{ vars.BOOTSTRAP_STATE_BUCKET_NAME }}
       TF_VAR_environment: ${{ inputs.environment || 'dev' }}
+      TF_VAR_lambda_role_arn: ${{ vars.LAMBDA_ROLE_ARN }}
+      TF_VAR_ses_from_email: ${{ secrets.SES_FROM_EMAIL }}
+      TF_VAR_ses_auto_reply_from_email: ${{ secrets.SES_AUTO_REPLY_FROM_EMAIL }}
+      TF_VAR_contact_recipient_email: ${{ secrets.CONTACT_RECIPIENT_EMAIL }}
 
     steps:
       - name: Checkout repository
