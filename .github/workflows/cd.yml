@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: Environment to plan
+        description: Environment to deploy
         required: true
         default: dev
         type: choice
@@ -12,6 +12,16 @@ on:
           - dev
           - stag
           - prod
+      action:
+        description: Terraform action
+        required: true
+        default: plan
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+  # Pull requests only ever plan. Apply and destroy are manual.
   pull_request:
     branches:
       - main
@@ -76,7 +86,14 @@ jobs:
 
       - name: Build website
         run: npm run build
-        
+
+      # A destroy run plans the teardown, so the log shows exactly what will be removed.
       - name: Terraform Plan
         working-directory: infra/terraform/envs/${{ inputs.environment || 'dev' }}
-        run: terraform plan -out=tfplan
+        run: terraform plan -input=false ${{ inputs.action == 'destroy' && '-destroy' || '' }} -out=tfplan
+
+      # Applies the saved plan above, so nothing changes between plan and apply.
+      - name: Terraform ${{ inputs.action == 'destroy' && 'Destroy' || 'Apply' }}
+        if: github.event_name == 'workflow_dispatch' && (inputs.action == 'apply' || inputs.action == 'destroy')
+        working-directory: infra/terraform/envs/${{ inputs.environment || 'dev' }}
+        run: terraform apply -input=false tfplan
