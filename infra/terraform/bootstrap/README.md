@@ -1,6 +1,6 @@
 ﻿# Bootstrap
 
-Run bootstrap locally to create the environment's IAM deployment role, Lambda execution role, policies, and policy attachments. The deployment role trusts GitHub Actions through an existing GitHub OIDC provider. Terraform also manages the matching GitHub environment, deployment branch policies, and seven Actions variables.
+Run bootstrap locally to create the environment's IAM deployment role, Lambda execution role, policies, and policy attachments. The deployment role trusts GitHub Actions through an existing GitHub OIDC provider. Terraform also manages the matching GitHub environment, deployment branch policies, eight Actions variables, and three Actions secrets.
 
 Re-run bootstrap when setting up an environment or changing the deployment role's permissions or trust policy. Day-to-day infrastructure deployments use the role through CD.
 
@@ -63,6 +63,7 @@ github_owner                = "jacobsidhu"
 github_repository           = "portfolio"
 ses_from_email              = "dev-portfolio@jacobsidhu.com"
 ses_auto_reply_from_email   = "dev-autoreply@jacobsidhu.com"
+contact_recipient_email     = "dev-portfolio@jacobsidhu.com"
 ```
 
 `bootstrap_state_bucket_name` is published to GitHub as `BOOTSTRAP_STATE_BUCKET_NAME`. The script configures the actual bootstrap backend separately through `-StateBucket`, so keep those values aligned. `site_state_bucket_name` controls the deployment role's permissions for the main infrastructure state bucket and is published as `SITE_STATE_BUCKET_NAME`.
@@ -109,6 +110,17 @@ After apply succeeds, Terraform manages these variables in the selected GitHub e
 | `SITE_STATE_BUCKET_NAME` | `site_state_bucket_name` input |
 | `SITE_STATE_KEY` | `site_state_key` input |
 | `BOOTSTRAP_STATE_BUCKET_NAME` | `bootstrap_state_bucket_name` input |
+| `LAMBDA_ROLE_ARN` | Created Lambda execution role ARN |
+
+It also manages these secrets. They hold email addresses, so they're secrets to keep them masked in workflow logs.
+
+| GitHub secret | Value |
+| --- | --- |
+| `SES_FROM_EMAIL` | `ses_from_email` input |
+| `SES_AUTO_REPLY_FROM_EMAIL` | `ses_auto_reply_from_email` input |
+| `CONTACT_RECIPIENT_EMAIL` | `contact_recipient_email` input |
+
+The environment's `CONTACT_RECIPIENT_EMAIL` takes priority over any repository-level secret with the same name. Secret values are stored in plain text in the bootstrap state, so keep the state bucket private and encrypted.
 
 CD can read the role ARN through `${{ vars.TERRAFORM_ROLE_ARN }}` when its job selects that environment. You can also inspect the saved output locally.
 
@@ -145,7 +157,7 @@ Destroy the main infrastructure first if deployment access depends on this role.
 .\bootstrap.ps1 -Environment dev -Action destroy
 ```
 
-Terraform shows the proposed deletions and asks for confirmation. This removes the managed deployment and Lambda roles, policies, policy attachments, deployment branch policies, all seven Actions variables listed above, and the selected GitHub environment. Deleting that GitHub environment also removes any additional environment variables, secrets, and protection rules attached to it. The existing S3 bucket and OIDC provider are managed separately.
+Terraform shows the proposed deletions and asks for confirmation. This removes the managed deployment and Lambda roles, policies, policy attachments, deployment branch policies, all Actions variables and secrets listed above, and the selected GitHub environment. Deleting that GitHub environment also removes any additional environment variables, secrets, and protection rules attached to it. The existing S3 bucket and OIDC provider are managed separately.
 
 ## CI validation
 
