@@ -71,3 +71,10 @@ variable "ses_auto_reply_from_email" {
   description = "The email address to use as the 'From' address for SES auto-reply"
   type        = string
 }
+
+# Only published to GitHub as a secret. Not used in any AWS resource.
+variable "contact_recipient_email" {
+  description = "Address that receives contact form messages."
+  type        = string
+  sensitive   = true
+}
