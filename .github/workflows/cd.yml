@@ -1,0 +1,103 @@
+name: Continuous Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - stag
+          - prod
+      action:
+        description: Terraform action
+        required: true
+        default: plan
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+  # Pull requests only ever plan. Apply and destroy are manual.
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: development-CD
+  cancel-in-progress: false
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-validate:
+    name: Deploy Terraform
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment || 'dev' }}
+    env:
+      TF_VAR_aws_region:  ${{ vars.AWS_REGION }}
+      TF_VAR_site_bucket_name: ${{ vars.SITE_BUCKET_NAME }}
+      TF_VAR_site_state_bucket_name: ${{ vars.SITE_STATE_BUCKET_NAME }}
+      TF_VAR_bootstrap_state_bucket_name: ${{ vars.BOOTSTRAP_STATE_BUCKET_NAME }}
+      TF_VAR_environment: ${{ inputs.environment || 'dev' }}
+      TF_VAR_lambda_role_arn: ${{ vars.LAMBDA_ROLE_ARN }}
+      TF_VAR_ses_from_email: ${{ secrets.SES_FROM_EMAIL }}
+      TF_VAR_ses_auto_reply_from_email: ${{ secrets.SES_AUTO_REPLY_FROM_EMAIL }}
+      TF_VAR_contact_recipient_email: ${{ secrets.CONTACT_RECIPIENT_EMAIL }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.TERRAFORM_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ">=1.15.0"
+
+      - name: Terraform Init (S3 backend)
+        working-directory: infra/terraform/envs/${{ inputs.environment || 'dev' }}
+        run: |
+          terraform init -input=false \
+            -backend-config="bucket=${{ vars.SITE_STATE_BUCKET_NAME }}" \
+            -backend-config="key=${{ vars.SITE_STATE_KEY }}" \
+            -backend-config="region=${{ vars.AWS_REGION }}" \
+            -backend-config="use_lockfile=true" \
+            -backend-config="encrypt=true"
+
+      - name: Terraform Validate
+        working-directory: infra/terraform/envs/${{ inputs.environment || 'dev' }}
+        run: terraform validate
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build website
+        run: npm run build
+
+      # A destroy run plans the teardown, so the log shows exactly what will be removed.
+      - name: Terraform Plan
+        working-directory: infra/terraform/envs/${{ inputs.environment || 'dev' }}
+        run: terraform plan -input=false ${{ inputs.action == 'destroy' && '-destroy' || '' }} -out=tfplan
+
+      # Applies the saved plan above, so nothing changes between plan and apply.
+      - name: Terraform ${{ inputs.action == 'destroy' && 'Destroy' || 'Apply' }}
+        if: github.event_name == 'workflow_dispatch' && (inputs.action == 'apply' || inputs.action == 'destroy')
+        working-directory: infra/terraform/envs/${{ inputs.environment || 'dev' }}
+        run: terraform apply -input=false tfplan

@@ -1,0 +1,19 @@
+/* ---------- about ---------- */
+.about{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:48px;align-items:start;padding:34px 0 80px}
+.about h2{
+  font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;
+  font-size:clamp(30px,3.5vw,50px);line-height:1.12;letter-spacing:-1.5px;margin:0 0 26px;
+}
+.about h2 .bar{color:var(--green);font-weight:500;padding:0 .12em}
+.about h2 .accent{color:var(--green)}
+.about-main p{font-size:clamp(16.5px,1.25vw,18.5px);line-height:1.65;color:#c3cec9;max-width:720px}
+.about-main p + p{margin-top:16px}
+.about strong{color:var(--text);font-weight:600}
+.about-cards{display:flex;flex-direction:column;gap:18px;padding-top:6px}
+.about-card{
+  padding:22px 24px;border-radius:14px;border:1px solid var(--line);background:var(--card);backdrop-filter:blur(6px);
+  transition:border-color .2s;
+}
+.about-card:hover{border-color:rgba(53,224,92,.6)}
+.about-card h3{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:13.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.about-card p{font-size:16px;line-height:1.6;color:#c3cec9}

@@ -1,0 +1,22 @@
+/* ---------- projects ---------- */
+.projects{padding:34px 0 80px}
+.projects h2{
+  font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;
+  font-size:clamp(30px,3.5vw,50px);line-height:1.12;letter-spacing:-1.5px;margin:0 0 30px;
+}
+.projects h2 .accent{color:var(--green)}
+.project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.project-card{
+  display:flex;flex-direction:column;padding:24px 24px 22px;border-radius:16px;
+  border:1px solid var(--line);background:var(--card);backdrop-filter:blur(6px);
+  transition:border-color .2s, transform .2s;
+}
+.project-card:hover{border-color:rgba(53,224,92,.6);transform:translateY(-4px)}
+.project-top{display:flex;align-items:center;justify-content:space-between;min-height:28px;margin-bottom:14px}
+.project-num{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:15px;letter-spacing:1px;color:var(--green)}
+.project-badge{padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:600;color:var(--green);border:1px solid rgba(53,224,92,.45);background:rgba(53,224,92,.08)}
+.project-card h3{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:21px;line-height:1.25;letter-spacing:-.4px}
+.project-card h3 span{display:block;margin-top:4px;font-size:15px;font-weight:600;letter-spacing:0;color:var(--muted)}
+.project-card p{font-size:16px;line-height:1.6;color:#c3cec9;margin:14px 0 20px}
+.project-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin-top:auto}
+.project-tags li{padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);font-size:13.5px;font-weight:600}

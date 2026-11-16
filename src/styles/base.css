@@ -1,0 +1,52 @@
+/* Colour tokens, reset, scrollbar, page background and the content wrapper. */
+
+:root{
+  --bg:#051210;
+  --bg-2:#071a16;
+  --green:#35e05c;
+  --green-2:#22c55e;
+  --green-deep:#0f8a3a;
+  --text:#f2f6f4;
+  --muted:#b5c2bd;
+  --line:rgba(255,255,255,.14);
+  --card:rgba(12,28,25,.72);
+  --card-2:rgba(16,36,32,.85);
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+/* Always reserve the scrollbar's space so switching between short and tall panels never shifts the layout. */
+html{scroll-behavior:smooth;scrollbar-gutter:stable;background:#04100e}
+
+/* ---------- scrollbar (Chrome, Edge, Safari) ---------- */
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:#04100e}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#22c55e,#0f8a3a);border-radius:999px;border:3px solid #04100e}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#35e05c,#22c55e)}
+::-webkit-scrollbar-corner{background:#04100e}
+/* Firefox has no ::-webkit-scrollbar; give it the same colours. */
+@supports not selector(::-webkit-scrollbar){html{scrollbar-color:#22c55e #04100e;scrollbar-width:thin}}
+body{
+  font-family:Inter,system-ui,sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+
+/* ---------- background ---------- */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(900px 520px at 58% 22%, rgba(22,120,90,.32), transparent 70%),
+    radial-gradient(700px 500px at 8% 85%, rgba(20,110,60,.25), transparent 70%),
+    radial-gradient(600px 400px at 95% 10%, rgba(20,90,80,.18), transparent 70%),
+    linear-gradient(180deg,#061513 0%, #04100e 100%);
+}
+.bg .mountains{position:absolute;left:28%;top:120px;width:60%;max-width:900px;opacity:.55}
+.bg .wave{position:absolute;left:0;bottom:-40px;width:46%;min-width:520px;opacity:.9}
+
+.wrap{position:relative;z-index:1;max-width:1420px;margin:0 auto;padding:0 40px}

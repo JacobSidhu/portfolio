@@ -1,0 +1,27 @@
+/* ---------- nav ---------- */
+nav{
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:18px 0 16px;border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:22px}
+.logo{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:38px;letter-spacing:-2px;line-height:1}
+.logo span{color:var(--green)}
+.brand .divider{width:1px;height:38px;background:var(--line)}
+.brand .name{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:21px}
+.links{display:flex;gap:6px;list-style:none}
+.links a{
+  display:block;padding:11px 22px;border-radius:12px;font-weight:600;font-size:16px;color:#e6ece9;
+  transition:background .2s,color .2s;
+}
+.links a:hover{background:rgba(255,255,255,.06)}
+.links a.active{background:var(--green-deep);color:#fff;box-shadow:0 0 0 1px rgba(53,224,92,.35) inset}
+.btn-talk{
+  display:inline-flex;align-items:center;gap:12px;padding:12px 22px;border:1.5px solid rgba(255,255,255,.7);
+  border-radius:12px;font-weight:600;font-size:17px;transition:border-color .2s,background .2s;
+}
+.btn-talk:hover{border-color:var(--green);background:rgba(53,224,92,.08)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px;cursor:pointer}
+
+/* Highlight for "Let's talk" and the mobile-only Contact link. */
+.nav-contact{display:none}
+.btn-talk.active{border-color:var(--green);background:rgba(53,224,92,.12)}
