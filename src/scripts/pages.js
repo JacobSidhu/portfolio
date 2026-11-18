@@ -1,5 +1,5 @@
-// Panel navigation: one section shows at a time. Handles nav links, swipe
-// gestures, the staggered entrance animation and deep links like #projects.
+// Panel navigation: one section shows at a time. Handles nav links, the
+// staggered entrance animation and deep links like #projects.
 
 export function initPages() {
   const nav = document.getElementById('nav');
@@ -16,7 +16,7 @@ export function initPages() {
   const LEAVE_TIME = reduceMotion ? 0 : 520;
 
   // Elements that animate in one after another, in this order, per panel.
-  const REVEAL = '.pill, h1, .lede, .btn, .photo, .stat, .ribbon-clip, .about h2, .about-main p, .about-card, .skills h2, .skill-group, .projects h2, .project-card, .contact h2, .contact-lede, .contact-item, .contact-field, .socials h3, .social-card';
+  const REVEAL = '.pill, h1, .lede, .btn, .photo, .stat, .ribbon-clip, .hl-title, .hl-list > li, .about h2, .about-main p, .about-card, .skills h2, .skill-group, .projects h2, .project-card, .contact h2, .contact-lede, .contact-item, .contact-field, .socials h3, .social-card';
   panels.forEach(panel => panel.querySelectorAll(REVEAL).forEach((el, i) => {
     el.classList.add('reveal');
     el.style.setProperty('--i', i);
@@ -80,24 +80,6 @@ export function initPages() {
     history.replaceState(null, '', a.getAttribute('href'));
   }));
 
-  // Swiping sideways on a touch screen moves one panel left or right.
-  let touch = null;
-  pages.addEventListener('touchstart', e => {
-    touch = e.touches.length === 1 ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : null;
-  }, { passive: true });
-  pages.addEventListener('touchend', e => {
-    if (!touch) return;
-    const dx = e.changedTouches[0].clientX - touch.x;
-    const dy = e.changedTouches[0].clientY - touch.y;
-    touch = null;
-    if (Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
-    const index = current + (dx < 0 ? 1 : -1);
-    if (!panels[index]) return;
-    show(index);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    setActiveLink(linkFor(panels[index]));
-    history.replaceState(null, '', '#' + panels[index].id);
-  }, { passive: true });
 
   // First load: elements rise into place.
   const startAt = panels.findIndex(panel => '#' + panel.id === location.hash);
