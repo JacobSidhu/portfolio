@@ -16,7 +16,7 @@ export function initPages() {
   const LEAVE_TIME = reduceMotion ? 0 : 520;
 
   // Elements that animate in one after another, in this order, per panel.
-  const REVEAL = '.pill, h1, .lede, .btn, .photo, .stat, .ribbon-clip, .hl-title, .hl-list > li, .about h2, .about-main p, .about-card, .skills h2, .skill-group, .projects h2, .project-card, .contact h2, .contact-lede, .contact-item, .contact-field, .socials h3, .social-card';
+  const REVEAL = '.pill, h1, .lede, .btn, .photo, .stat, .ribbon-clip, .about h2, .about-main p, .about-card, .skills h2, .skills-lede, .skill-card, .core-stack, .projects h2, .project-card, .contact h2, .contact-lede, .contact-item, .contact-field, .socials h3, .social-card';
   panels.forEach(panel => panel.querySelectorAll(REVEAL).forEach((el, i) => {
     el.classList.add('reveal');
     el.style.setProperty('--i', i);
