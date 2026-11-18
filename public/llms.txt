@@ -1,0 +1,30 @@
+# Jacob Sidhu
+
+> Manchester-based Cloud Engineer and Software Engineer. Designs, builds and automates secure, scalable and highly available cloud infrastructure on AWS. Open to Cloud and DevOps roles.
+
+## Profile
+
+- Location: Manchester, UK
+- Education: BSc Software Engineering, University of Central Lancashire
+- Experience: 4+ years of engineering experience, 12+ projects
+- Certifications: AWS Certified Cloud Practitioner; HashiCorp Certified: Terraform Associate
+
+## Skills
+
+- Cloud: AWS (EC2, S3, Lambda, RDS, VPC, IAM, EKS, SQS, API Gateway, CloudWatch, Route 53)
+- DevOps and IaC: Terraform, Docker, Kubernetes, GitHub Actions, CI/CD, Linux, Bash
+- Software: Python, TypeScript, JavaScript, Node.js, REST APIs, SQL
+- Architecture: distributed systems, microservices, high availability, cloud networking and security, event-driven design
+
+## Projects
+
+- QuizX: AWS-based distributed application using Amazon EKS, SQS and Terraform
+- DockGen: AI-powered Dockerfile generator
+- CDocX (in progress): AI-assisted healthcare documentation platform
+- This portfolio: serverless on AWS (API Gateway, Lambda, S3, SES), deployed with Terraform and GitHub Actions
+
+## Links
+
+- LinkedIn: https://www.linkedin.com/in/jacobsidhu
+- GitHub: https://github.com/jacobsidhu
+- CV (PDF): /Jacob_Sidhu_Cloud_Engineer_CV.pdf
