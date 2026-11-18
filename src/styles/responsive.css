@@ -1,18 +1,26 @@
 /* Loaded last so these override the section styles above. */
 
-@media (prefers-reduced-motion:reduce){.ribbon-track,.frame-path,.is-active .reveal,.is-leaving .reveal{animation:none}.page.is-leaving{display:none}}
+@media (prefers-reduced-motion:reduce){.ribbon-track,.frame-path,.is-active .reveal,.is-leaving .reveal,.is-active .skill-bar span{animation:none}.page.is-leaving{display:none}}
 
 /* ---------- responsive ---------- */
+/* Skills: below this width the bento cards get too narrow beside the intro, so stack the intro on top. */
+@media (max-width:1320px){
+  .skills{grid-template-columns:1fr;gap:34px}
+  .skills-lede{max-width:640px}
+  .focus-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 @media (max-width:1180px){
   .hero{grid-template-columns:1fr 1fr}
   .social-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stats{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,1fr);margin-top:0}
   .stat{padding:16px 18px;gap:16px}
   .links a{padding:10px 14px}
 }
 @media (max-width:960px){
+  .skill-bento{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .skill-bento > .skill-group{grid-column:span 1}
+  .skill-bento > .skill-group.wide,.skill-bento > .skill-group:last-child{grid-column:1 / -1}
   .links,.btn-talk{display:none}
   .nav-contact{display:list-item}
   .menu-btn{display:block}
@@ -32,7 +40,11 @@
   .hero{grid-template-columns:1fr}
   .social-grid{grid-template-columns:1fr}
   .project-grid{grid-template-columns:1fr}
-  .skill-grid{grid-template-columns:1fr}
+  .skill-bento{grid-template-columns:1fr}
+  .skill-bento > .skill-group{grid-column:1 / -1}
+  .skill-group.wide .skill-tags{padding-left:0}
+  .skill-group.wide .skill-meter{width:clamp(120px,30vw,180px)}
+  .focus-list{grid-template-columns:1fr}
   .skills{padding-bottom:56px}
   .projects{padding-bottom:56px}
   .photo{max-width:440px;margin:30px auto 0;width:100%}

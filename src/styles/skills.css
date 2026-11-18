@@ -1,22 +1,89 @@
 /* ---------- skills ---------- */
-.skills{padding:34px 0 80px}
+/* Left: intro and focus areas. Right: a bento grid of skill groups, each with a proficiency bar. */
+.skills{display:grid;grid-template-columns:minmax(0,27fr) minmax(0,73fr);gap:40px;align-items:start;padding:34px 0 80px}
+
+/* intro column */
+.skills-kicker{font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:9px 18px;border-radius:999px}
 .skills h2{
   font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;
-  font-size:clamp(30px,3.5vw,50px);line-height:1.12;letter-spacing:-1.5px;margin:0 0 30px;
+  font-size:clamp(34px,3.3vw,54px);line-height:1.04;letter-spacing:-2px;margin:26px 0 22px;
 }
-.skills h2 .accent{color:var(--green)}
-.skill-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:start}
+.skills h2 .accent{display:block;color:var(--green)}
+.skills-lede{font-size:clamp(16.5px,1.25vw,18.5px);line-height:1.65;color:#c3cec9;max-width:440px}
+.focus-list{display:flex;flex-direction:column;gap:16px;margin-top:30px;list-style:none}
+.focus-card{
+  display:flex;align-items:center;gap:20px;padding:16px 22px;border-radius:14px;
+  border:1px solid rgba(53,224,92,.35);
+  background:linear-gradient(135deg,rgba(18,52,38,.85),rgba(8,24,20,.85));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 10px 26px -16px rgba(53,224,92,.5);
+  transition:border-color .2s, transform .2s;
+}
+.focus-card:hover{border-color:rgba(53,224,92,.7);transform:translateX(4px)}
+.focus-icon{flex:none;width:46px;height:46px;display:grid;place-items:center;border-radius:50%;background:rgba(53,224,92,.12)}
+.focus-card div{padding-left:20px;border-left:1px solid var(--line)}
+.focus-card strong{display:block;font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:19px}
+.focus-card div span{display:block;color:#c9d3cf;font-size:14px;margin-top:3px}
+
+/* bento grid: 6 tracks so rows can hold 1, 2 or 3 cards */
+.skill-bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}
 .skill-group{
-  padding:24px;border-radius:16px;border:1px solid var(--line);background:var(--card);backdrop-filter:blur(6px);
-  transition:border-color .2s;
+  grid-column:span 2;position:relative;overflow:hidden;padding:22px 22px 26px;border-radius:18px;
+  border:1px solid rgba(53,224,92,.32);
+  background:linear-gradient(160deg,rgba(16,44,34,.92) 0%,rgba(8,24,20,.92) 70%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 12px 30px -18px rgba(53,224,92,.55);
+  transition:border-color .2s, transform .2s, box-shadow .2s;
 }
-.skill-group:hover{border-color:rgba(53,224,92,.6)}
-.skill-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}
-.skill-head svg{flex:none;padding:8px;width:42px;height:42px;border-radius:12px;background:rgba(53,224,92,.1);border:1px solid rgba(53,224,92,.25)}
-.skill-head h3{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:18.5px;line-height:1.3;letter-spacing:-.3px}
-.skill-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.skill-group.half{grid-column:span 3}
+.skill-group.wide{grid-column:1 / -1}
+.skill-group:hover{border-color:rgba(53,224,92,.7);transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 16px 38px -16px rgba(53,224,92,.7)}
+/* decorative glow curve in the bottom-right corner; the DevOps card gets mountain peaks instead */
+.skill-group::after{
+  content:"";position:absolute;right:0;bottom:0;width:58%;height:52%;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2335e05c' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%2335e05c' stop-opacity='.3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 160C110 152 215 112 300 36V160z' fill='url(%23g)'/%3E%3Cpath d='M0 160C110 152 215 112 300 36' fill='none' stroke='%2335e05c' stroke-opacity='.5' stroke-width='1.4' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat right bottom/100% 100%;
+}
+.skill-group.peaks::after{width:52%;height:58%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%2335e05c' stop-opacity='.32'/%3E%3Cstop offset='1' stop-color='%2335e05c' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M20 160L95 96L128 124L190 46L250 108L300 82V160z' fill='url(%23g)'/%3E%3Cpath d='M20 160L95 96L128 124L190 46L250 108L300 82' fill='none' stroke='%2335e05c' stroke-opacity='.45' stroke-width='1.4' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E")}
+.skill-group > *{position:relative;z-index:1}
+
+.skill-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;margin-bottom:20px}
+.skill-icon{
+  width:54px;height:54px;display:grid;place-items:center;border-radius:14px;
+  background:rgba(53,224,92,.08);border:1px solid rgba(53,224,92,.45);box-shadow:inset 0 0 18px rgba(53,224,92,.14);
+}
+.skill-head h3{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:19px;line-height:1.25;letter-spacing:-.3px}
+.skill-group.wide .skill-head h3{font-size:clamp(20px,1.8vw,27px)}
+
+/* proficiency: percentage over the bar, or beside it on the wide card */
+.skill-meter{display:flex;flex-direction:column;align-items:flex-end;gap:8px;width:clamp(96px,8.5vw,128px)}
+.skill-group.wide .skill-meter{flex-direction:row;align-items:center;gap:16px;width:clamp(190px,17vw,260px)}
+.skill-group.wide .skill-bar{flex:1}
+.skill-pct{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:17px;color:var(--green)}
+.skill-group.wide .skill-pct{font-size:20px}
+.skill-bar{display:block;width:100%;height:9px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
+.skill-bar span{
+  display:block;height:100%;width:var(--p);border-radius:inherit;transform-origin:left;
+  background:linear-gradient(90deg,#22c55e,#35e05c);box-shadow:0 0 12px rgba(53,224,92,.6);
+}
+/* the bar fills in just after its card appears */
+.is-active .skill-bar span{animation:bar-fill 1.1s cubic-bezier(.2,.7,.2,1) calc(var(--i,0) * 80ms + 250ms) backwards}
+@keyframes bar-fill{from{transform:scaleX(0)}}
+
+/* two-per-row and three-per-row cards are narrower: tighten the header so title, % and bar sit side by side */
+.skill-group.half .skill-head h3{font-size:18px}
+.skill-group.half .skill-meter{width:clamp(84px,7vw,112px)}
+.skill-group.third{padding:20px 18px 24px}
+.skill-group.third .skill-head{gap:12px;align-items:start}
+.skill-group.third .skill-icon{width:46px;height:46px;border-radius:12px}
+.skill-group.third .skill-icon svg{width:24px;height:24px}
+.skill-group.third .skill-head h3{font-size:16.5px;align-self:center}
+.skill-group.third .skill-meter{width:clamp(62px,5vw,78px);gap:6px;padding-top:6px}
+.skill-group.third .skill-pct{font-size:15px}
+.skill-group.third .skill-tags{gap:8px}
+.skill-group.third .skill-tags li{font-size:13.5px;padding:6px 12px}
+
+.skill-tags{display:flex;flex-wrap:wrap;gap:9px;list-style:none}
+.skill-group.wide .skill-tags{padding-left:70px}
 .skill-tags li{
-  padding:7px 13px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);
-  font-size:14px;font-weight:600;transition:border-color .2s, color .2s, background .2s;
+  padding:7px 15px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);
+  font-size:14.5px;font-weight:600;transition:border-color .2s, color .2s, background .2s;
 }
-.skill-tags li:hover{border-color:rgba(53,224,92,.55);background:rgba(53,224,92,.1);color:#fff}
+.skill-tags li:hover{border-color:rgba(53,224,92,.6);background:rgba(53,224,92,.1);color:#fff}
