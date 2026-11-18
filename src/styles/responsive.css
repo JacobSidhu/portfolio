@@ -1,6 +1,6 @@
 /* Loaded last so these override the section styles above. */
 
-@media (prefers-reduced-motion:reduce){.ribbon-track,.frame-path,.is-active .reveal,.is-leaving .reveal{animation:none}.page.is-leaving{display:none}}
+@media (prefers-reduced-motion:reduce){.ribbon-track,.frame-path,.is-active .reveal,.is-leaving .reveal,.hl-pulse::after,.is-active .hl-title.reveal,.is-active .hl-list > li.reveal{animation:none}.page.is-leaving{display:none}}
 
 /* ---------- responsive ---------- */
 @media (max-width:1180px){
@@ -10,6 +10,7 @@
   .skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stats{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,1fr);margin-top:0}
   .stat{padding:16px 18px;gap:16px}
+  .stat-icon{width:44px;height:44px}
   .links a{padding:10px 14px}
 }
 @media (max-width:960px){
