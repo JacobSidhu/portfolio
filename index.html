@@ -192,68 +192,141 @@
     </div>
   </section>
   <section class="page" id="skills" aria-labelledby="skills-title">
+    <!-- Icon sprite for the skills panel: each logo is drawn once and reused with <use>. -->
+    <svg class="sprite" aria-hidden="true" focusable="false">
+      <symbol id="i-aws" viewBox="0 0 32 32"><text x="16" y="17" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="12.5" fill="#fff">aws</text><path d="M6.5 21c5.8 3.4 13.2 3.4 19 0" fill="none" stroke="#ff9900" stroke-width="2" stroke-linecap="round"/><path d="M22.6 19.4l3.1 1.5-1.3 3.1" fill="none" stroke="#ff9900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-ec2" viewBox="0 0 32 32"><rect x="9" y="9" width="14" height="14" rx="1.5" fill="#f58534"/><path d="M12 5v4M16 5v4M20 5v4M12 23v4M16 23v4M20 23v4M5 12h4M5 16h4M5 20h4M23 12h4M23 16h4M23 20h4" stroke="#f58534" stroke-width="1.8" stroke-linecap="round"/></symbol>
+      <symbol id="i-s3" viewBox="0 0 32 32"><path d="M16 4l10 5.5v13L16 28 6 22.5v-13zM6 9.5 16 15l10-5.5M16 15v13" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="i-rds" viewBox="0 0 32 32"><g fill="none" stroke="#4f8ff7" stroke-width="2"><ellipse cx="16" cy="8" rx="9" ry="3.5"/><path d="M7 8v16c0 1.9 4 3.5 9 3.5s9-1.6 9-3.5V8M7 16c0 1.9 4 3.5 9 3.5s9-1.6 9-3.5"/></g></symbol>
+      <symbol id="i-lambda" viewBox="0 0 32 32"><path d="M8 5h5l10 21h3M15.5 13 8 27" fill="none" stroke="#ff9900" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-terraform" viewBox="0 0 32 32"><path d="M4 2.5l7 4v8l-7-4z" fill="#844fba"/><path d="M12.5 7.5l7 4v8l-7-4zM12.5 17l7 4v8.5l-7-4z" fill="#844fba"/><path d="M28 7.5l-7 4v8l7-4z" fill="#5d4ed6"/></symbol>
+      <symbol id="i-docker" viewBox="0 0 32 32"><g fill="#2496ed"><rect x="5.5" y="13" width="3.4" height="3.2" rx=".4"/><rect x="9.6" y="13" width="3.4" height="3.2" rx=".4"/><rect x="13.7" y="13" width="3.4" height="3.2" rx=".4"/><rect x="17.8" y="13" width="3.4" height="3.2" rx=".4"/><rect x="9.6" y="9.2" width="3.4" height="3.2" rx=".4"/><rect x="13.7" y="9.2" width="3.4" height="3.2" rx=".4"/><rect x="17.8" y="9.2" width="3.4" height="3.2" rx=".4"/><rect x="13.7" y="5.4" width="3.4" height="3.2" rx=".4"/><path d="M2.5 17h22.8c1.2-1.7 3.4-2 4.7-1.1-.6 1.7-2 2.4-3.5 2.4C24.8 23.6 20 27 12.8 27 6.6 27 3 23.4 2.5 17z"/></g></symbol>
+      <symbol id="i-k8s" viewBox="0 0 32 32"><path d="M16 2.5l10.6 5.1 2.6 11.5-7.3 9.2H10.1l-7.3-9.2L5.4 7.6z" fill="#326ce5"/><g fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><circle cx="16" cy="16.5" r="5.2"/><path d="M16 8v17M8.6 12.2l14.8 8.6M8.6 20.8l14.8-8.6"/></g></symbol>
+      <symbol id="i-actions" viewBox="0 0 32 32"><g fill="none" stroke="#4f9cf7" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="3.5"/><circle cx="8" cy="24" r="3.5"/><circle cx="24" cy="16" r="3.5"/><path d="M8 11.5v9M11.5 8h3l5.6 6M11.5 24h3l5.6-6"/></g></symbol>
+      <symbol id="i-python" viewBox="0 0 32 32"><path d="M15.8 3c-6.4 0-6 2.8-6 2.8V9H16v1H7.3S3 9.5 3 16s3.7 6.2 3.7 6.2H9v-3s-.1-3.8 3.8-3.8h6.3s3.6.1 3.6-3.5V5.9S23.3 3 15.8 3zm-3.5 2a1.1 1.1 0 1 1 0 2.3 1.1 1.1 0 0 1 0-2.3z" fill="#4b8bbe"/><path d="M16.2 29c6.4 0 6-2.8 6-2.8V23H16v-1h8.7S29 22.5 29 16s-3.7-6.2-3.7-6.2H23v3s.1 3.8-3.8 3.8h-6.3s-3.6-.1-3.6 3.5v6s-.6 2.9 6.9 2.9zm3.5-2a1.1 1.1 0 1 1 0-2.3 1.1 1.1 0 0 1 0 2.3z" fill="#ffd43b"/></symbol>
+      <symbol id="i-ts" viewBox="0 0 32 32"><rect x="3" y="3" width="26" height="26" rx="3" fill="#3178c6"/><text x="26.5" y="26" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="12" fill="#fff">TS</text></symbol>
+      <symbol id="i-js" viewBox="0 0 32 32"><rect x="3" y="3" width="26" height="26" rx="3" fill="#f7df1e"/><text x="26.5" y="26" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="12" fill="#111">JS</text></symbol>
+      <symbol id="i-node" viewBox="0 0 32 32"><path d="M16 2.5l11.7 6.75v13.5L16 29.5 4.3 22.75V9.25z" fill="none" stroke="#6cc24a" stroke-width="2" stroke-linejoin="round"/><text x="16" y="20" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="10" fill="#6cc24a">JS</text></symbol>
+      <symbol id="i-github" viewBox="0 0 24 24"><path fill="#fff" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></symbol>
+      <symbol id="i-cloud" viewBox="0 0 32 32"><path d="M9 24h14a6 6 0 0 0 .7-12A8 8 0 0 0 8.4 13.8 5.2 5.2 0 0 0 9 24z" fill="none" stroke="#b07cf7" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="i-network" viewBox="0 0 32 32"><g fill="none" stroke="#b07cf7" stroke-width="2" stroke-linejoin="round"><rect x="12.5" y="4" width="7" height="6" rx="1"/><rect x="4" y="22" width="7" height="6" rx="1"/><rect x="12.5" y="22" width="7" height="6" rx="1"/><rect x="21" y="22" width="7" height="6" rx="1"/><path d="M16 10v12M7.5 22v-5h17v5"/></g></symbol>
+      <symbol id="i-shield" viewBox="0 0 32 32"><g fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3l10 4v8c0 6.5-4.3 11.5-10 14-5.7-2.5-10-7.5-10-14V7z"/><circle cx="16" cy="14" r="3"/><path d="M16 17v4"/></g></symbol>
+      <symbol id="i-route53" viewBox="0 0 32 32"><path d="M16 3l10 4v8c0 6.5-4.3 11.5-10 14-5.7-2.5-10-7.5-10-14V7z" fill="rgba(140,79,255,.28)" stroke="#a571ff" stroke-width="2" stroke-linejoin="round"/><text x="16" y="19.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="10" fill="#e2d3ff">53</text></symbol>
+      <symbol id="i-mysql" viewBox="0 0 32 32"><path d="M4.5 26c2-6 3.5-11.5 8.5-15.5 3-2.4 7-3 9.2-.9 1.5 1.5 3 4.4 5.3 5.9-2 .4-3.6-.2-4.6-1.1.3 3.1-1.2 6.6-3.8 8.6M20 12.5h.01" fill="none" stroke="#7fb4d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-rabbitmq" viewBox="0 0 32 32"><path d="M5 4h5v10h3V4h5v10h4.5a3.5 3.5 0 0 1 3.5 3.5V25a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z" fill="#ff6600"/><rect x="18.5" y="18" width="4" height="4" rx="1" fill="#0b1f19"/></symbol>
+      <symbol id="i-sqs" viewBox="0 0 32 32"><g fill="none" stroke="#ff4f8b" stroke-width="2" stroke-linecap="round"><circle cx="16" cy="16" r="11.5"/><rect x="11" y="12.5" width="10" height="7" rx="1.5"/><path d="M5 16h6M21 16h6"/></g></symbol>
+      <symbol id="i-genai" viewBox="0 0 32 32"><g fill="none" stroke="#fff" stroke-width="1.8"><ellipse cx="16" cy="16" rx="12" ry="5"/><ellipse cx="16" cy="16" rx="12" ry="5" transform="rotate(60 16 16)"/><ellipse cx="16" cy="16" rx="12" ry="5" transform="rotate(120 16 16)"/></g><circle cx="16" cy="16" r="2" fill="#fff"/></symbol>
+      <symbol id="i-ollama" viewBox="0 0 32 32"><g fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M10 28V14c0-3 .8-5 2-6l-.6-4.6c1.6 0 2.7 1.6 3.1 3.6h3c.4-2 1.5-3.6 3.1-3.6L20 8c1.2 1 2 3 2 6v14"/><ellipse cx="16" cy="20.5" rx="3" ry="2.2" stroke-width="1.6"/></g><circle cx="13.3" cy="15" r="1.1" fill="#fff"/><circle cx="18.7" cy="15" r="1.1" fill="#fff"/></symbol>
+      <symbol id="i-vscode" viewBox="0 0 32 32"><path d="M22.5 3 12 13 6.5 8.8 4 10v12l2.5 1.2L12 19l10.5 10 5.5-2.5v-21z" fill="#1f9cf0"/><path d="M22.5 10.5 15 16l7.5 5.5zM6.5 12.5 10 16l-3.5 3.5z" fill="#0b1f19"/></symbol>
+      <symbol id="i-postman" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="#ff6c37"/><path d="M10.5 21.5l9-9M17 10l5 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    </svg>
+
     <div class="wrap">
       <div class="skills">
-        <div class="skills-intro">
-          <span class="pill skills-kicker"><span class="dot"></span>Skills &amp; Expertise</span>
-          <h2 id="skills-title">My Skills &amp; <span class="accent">Technologies</span></h2>
-          <p class="skills-lede">A practical toolkit for building secure, scalable and highly available cloud solutions &mdash; from infrastructure and DevOps to software engineering and automation.</p>
-          <ul class="focus-list">
-            <li class="focus-card"><span class="focus-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h10a4.5 4.5 0 0 0 .5-9 6 6 0 0 0-11.4 1.5A4 4 0 0 0 7 18z"/></svg></span><div><strong>Cloud</strong><span>Design, build and operate on AWS</span></div></li>
-            <li class="focus-card"><span class="focus-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12c-2-3-4.5-4-6.5-4a4 4 0 0 0 0 8c2 0 4.5-1 6.5-4zm0 0c2 3 4.5 4 6.5 4a4 4 0 0 0 0-8c-2 0-4.5 1-6.5 4z"/></svg></span><div><strong>DevOps</strong><span>Automate, deploy and scale reliably</span></div></li>
-            <li class="focus-card"><span class="focus-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></span><div><strong>Backend</strong><span>Build robust, maintainable systems</span></div></li>
-            <li class="focus-card"><span class="focus-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span><div><strong>Automation</strong><span>Streamline infrastructure and workflows</span></div></li>
-          </ul>
-        </div>
-        <div class="skill-bento">
-          <article class="skill-group wide">
-            <div class="skill-head">
-              <span class="skill-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h10a4.5 4.5 0 0 0 .5-9 6 6 0 0 0-11.4 1.5A4 4 0 0 0 7 18z"/></svg></span>
+        <header class="skills-head">
+          <h2 id="skills-title">Skills &amp; <span class="accent">Expertise</span></h2>
+          <p class="skills-lede">A modern cloud and software engineering skillset for building secure, scalable and automated solutions.</p>
+        </header>
+
+        <div class="skill-grid">
+          <article class="skill-card feature">
+            <div class="feature-copy">
+              <span class="badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h10a4.5 4.5 0 0 0 .5-9 6 6 0 0 0-11.4 1.5A4 4 0 0 0 7 18z"/></svg>Core Strength</span>
               <h3>Cloud Platforms &amp; Services</h3>
-              <div class="skill-meter"><span class="skill-pct">95%</span><span class="skill-bar" role="img" aria-label="Proficiency 95%"><span style="--p:95%"></span></span></div>
+              <p>Designing, deploying and operating scalable, resilient applications on AWS with large-scale cloud services.</p>
             </div>
-            <ul class="skill-tags"><li>AWS</li><li>EC2</li><li>S3</li><li>Lambda</li><li>VPC</li><li>IAM</li><li>EKS</li><li>RDS</li><li>SQS</li><li>API Gateway</li><li>CloudWatch</li><li>Route 53</li><li>ELB</li><li>Auto Scaling</li></ul>
+            <ul class="chips">
+              <li><svg aria-hidden="true"><use href="#i-aws"/></svg>AWS</li>
+              <li><svg aria-hidden="true"><use href="#i-ec2"/></svg>EC2</li>
+              <li><svg aria-hidden="true"><use href="#i-s3"/></svg>S3</li>
+              <li><svg aria-hidden="true"><use href="#i-rds"/></svg>RDS</li>
+              <li><svg aria-hidden="true"><use href="#i-lambda"/></svg>Lambda</li>
+            </ul>
           </article>
-          <article class="skill-group half peaks">
-            <div class="skill-head">
-              <span class="skill-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12c-2-3-4.5-4-6.5-4a4 4 0 0 0 0 8c2 0 4.5-1 6.5-4zm0 0c2 3 4.5 4 6.5 4a4 4 0 0 0 0-8c-2 0-4.5 1-6.5 4z"/></svg></span>
-              <h3>DevOps &amp; Infrastructure as Code</h3>
-              <div class="skill-meter"><span class="skill-pct">92%</span><span class="skill-bar" role="img" aria-label="Proficiency 92%"><span style="--p:92%"></span></span></div>
-            </div>
-            <ul class="skill-tags"><li>Terraform</li><li>Docker</li><li>Kubernetes</li><li>GitHub Actions</li><li>CI/CD</li><li>Infrastructure as Code</li><li>Git</li><li>GitHub</li><li>Linux</li><li>Bash</li></ul>
-          </article>
-          <article class="skill-group half">
-            <div class="skill-head">
-              <span class="skill-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></span>
+
+          <article class="skill-card">
+            <div class="card-head">
+              <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></span>
               <h3>Programming &amp; Software Engineering</h3>
-              <div class="skill-meter"><span class="skill-pct">90%</span><span class="skill-bar" role="img" aria-label="Proficiency 90%"><span style="--p:90%"></span></span></div>
             </div>
-            <ul class="skill-tags"><li>Python</li><li>TypeScript</li><li>JavaScript</li><li>Node.js</li><li>REST APIs</li><li>SQL</li><li>HTML</li><li>CSS</li></ul>
+            <p>Building reliable applications and integrations with modern languages and tools.</p>
+            <ul class="logos">
+              <li title="Python"><svg role="img" aria-label="Python"><use href="#i-python"/></svg></li>
+              <li title="TypeScript"><svg role="img" aria-label="TypeScript"><use href="#i-ts"/></svg></li>
+              <li title="JavaScript"><svg role="img" aria-label="JavaScript"><use href="#i-js"/></svg></li>
+              <li title="Node.js"><svg role="img" aria-label="Node.js"><use href="#i-node"/></svg></li>
+              <li title="GitHub"><svg role="img" aria-label="GitHub"><use href="#i-github"/></svg></li>
+            </ul>
           </article>
-          <article class="skill-group third">
-            <div class="skill-head">
-              <span class="skill-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-2h12v2"/></svg></span>
+
+          <article class="skill-card">
+            <div class="card-head">
+              <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-2h12v2"/></svg></span>
               <h3>Cloud Architecture &amp; Networking</h3>
-              <div class="skill-meter"><span class="skill-pct">93%</span><span class="skill-bar" role="img" aria-label="Proficiency 93%"><span style="--p:93%"></span></span></div>
             </div>
-            <ul class="skill-tags"><li>Distributed Systems</li><li>Microservices</li><li>High Availability</li><li>Load Balancing</li><li>VPC Networking</li><li>DNS</li><li>TCP/IP</li><li>Cloud Security</li><li>IAM &amp; RBAC</li><li>Event-Driven Architecture</li></ul>
+            <p>Designing secure, highly available and well-connected cloud architectures.</p>
+            <ul class="logos">
+              <li title="Cloud architecture"><svg role="img" aria-label="Cloud architecture"><use href="#i-cloud"/></svg></li>
+              <li title="VPC networking"><svg role="img" aria-label="VPC networking"><use href="#i-network"/></svg></li>
+              <li title="Cloud security"><svg role="img" aria-label="Cloud security"><use href="#i-shield"/></svg></li>
+              <li title="Route 53 and DNS"><svg role="img" aria-label="Route 53 and DNS"><use href="#i-route53"/></svg></li>
+            </ul>
           </article>
-          <article class="skill-group third">
-            <div class="skill-head">
-              <span class="skill-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></span>
+
+          <article class="skill-card feature">
+            <div class="feature-copy">
+              <span class="badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12c-2-3-4.5-4-6.5-4a4 4 0 0 0 0 8c2 0 4.5-1 6.5-4zm0 0c2 3 4.5 4 6.5 4a4 4 0 0 0 0-8c-2 0-4.5 1-6.5 4z"/></svg>Core Strength</span>
+              <h3>DevOps &amp; Infrastructure as Code</h3>
+              <p>Automating build, deployment and infrastructure with modern DevOps and IaC practices.</p>
+            </div>
+            <ul class="chips">
+              <li><svg aria-hidden="true"><use href="#i-terraform"/></svg>Terraform</li>
+              <li><svg aria-hidden="true"><use href="#i-docker"/></svg>Docker</li>
+              <li><svg aria-hidden="true"><use href="#i-k8s"/></svg>Kubernetes</li>
+              <li><svg aria-hidden="true"><use href="#i-actions"/></svg>Actions</li>
+            </ul>
+          </article>
+
+          <article class="skill-card">
+            <div class="card-head">
+              <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></span>
               <h3>Databases &amp; Messaging</h3>
-              <div class="skill-meter"><span class="skill-pct">88%</span><span class="skill-bar" role="img" aria-label="Proficiency 88%"><span style="--p:88%"></span></span></div>
             </div>
-            <ul class="skill-tags"><li>MySQL</li><li>Amazon RDS</li><li>Amazon SQS</li><li>RabbitMQ</li><li>ETL Pipelines</li><li>Real-Time Data Processing</li></ul>
+            <p>Working with relational, NoSQL and event-driven messaging systems.</p>
+            <ul class="logos">
+              <li title="MySQL"><svg role="img" aria-label="MySQL"><use href="#i-mysql"/></svg></li>
+              <li title="Amazon RDS"><svg role="img" aria-label="Amazon RDS"><use href="#i-rds"/></svg></li>
+              <li title="RabbitMQ"><svg role="img" aria-label="RabbitMQ"><use href="#i-rabbitmq"/></svg></li>
+              <li title="Amazon SQS"><svg role="img" aria-label="Amazon SQS"><use href="#i-sqs"/></svg></li>
+            </ul>
           </article>
-          <article class="skill-group third">
-            <div class="skill-head">
-              <span class="skill-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5 13.8 11.3 12 16l-1.8-4.7L5.5 9.5l4.7-1.8zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span>
+
+          <article class="skill-card">
+            <div class="card-head">
+              <span class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5 13.8 11.3 12 16l-1.8-4.7L5.5 9.5l4.7-1.8zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span>
               <h3>AI &amp; Development Tools</h3>
-              <div class="skill-meter"><span class="skill-pct">89%</span><span class="skill-bar" role="img" aria-label="Proficiency 89%"><span style="--p:89%"></span></span></div>
             </div>
-            <ul class="skill-tags"><li>Generative AI</li><li>LLM Integration</li><li>Ollama</li><li>AI-Assisted Development</li><li>VS Code</li><li>Postman</li></ul>
+            <p>Using AI-assisted development and modern tools to build, test and deliver faster.</p>
+            <ul class="logos">
+              <li title="Generative AI and LLMs"><svg role="img" aria-label="Generative AI and LLMs"><use href="#i-genai"/></svg></li>
+              <li title="Ollama"><svg role="img" aria-label="Ollama"><use href="#i-ollama"/></svg></li>
+              <li title="VS Code"><svg role="img" aria-label="VS Code"><use href="#i-vscode"/></svg></li>
+              <li title="Postman"><svg role="img" aria-label="Postman"><use href="#i-postman"/></svg></li>
+            </ul>
           </article>
+        </div>
+
+        <div class="core-stack">
+          <h3 class="core-title"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#35e05c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5zM2 13l10 5 10-5M2 17.5l10 5 10-5"/></svg>Core Stack</h3>
+          <p class="core-text">The key technologies I use to design, build and deploy production-ready systems.</p>
+          <ul class="core-list">
+            <li><svg class="wide-logo" aria-hidden="true"><use href="#i-aws"/></svg><span class="sr-only">AWS</span></li>
+            <li><svg aria-hidden="true"><use href="#i-terraform"/></svg>Terraform</li>
+            <li><svg aria-hidden="true"><use href="#i-k8s"/></svg>Kubernetes</li>
+            <li><svg aria-hidden="true"><use href="#i-docker"/></svg>Docker</li>
+            <li><svg aria-hidden="true"><use href="#i-python"/></svg>Python</li>
+            <li><svg aria-hidden="true"><use href="#i-node"/></svg>Node.js</li>
+          </ul>
         </div>
       </div>
     </div>
