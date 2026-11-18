@@ -53,7 +53,7 @@ variable "ses_email_identity" {
 variable "enable_custom_domain" {
   description = "Create the certificate and custom domain for the API."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "portfolio_domain_name" {
