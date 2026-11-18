@@ -1,5 +1,5 @@
-// Panel navigation: one section shows at a time. Handles nav links, swipe
-// gestures, the staggered entrance animation and deep links like #projects.
+// Panel navigation: one section shows at a time. Handles nav links, the
+// staggered entrance animation and deep links like #projects.
 
 export function initPages() {
   const nav = document.getElementById('nav');
@@ -80,24 +80,6 @@ export function initPages() {
     history.replaceState(null, '', a.getAttribute('href'));
   }));
 
-  // Swiping sideways on a touch screen moves one panel left or right.
-  let touch = null;
-  pages.addEventListener('touchstart', e => {
-    touch = e.touches.length === 1 ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : null;
-  }, { passive: true });
-  pages.addEventListener('touchend', e => {
-    if (!touch) return;
-    const dx = e.changedTouches[0].clientX - touch.x;
-    const dy = e.changedTouches[0].clientY - touch.y;
-    touch = null;
-    if (Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
-    const index = current + (dx < 0 ? 1 : -1);
-    if (!panels[index]) return;
-    show(index);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    setActiveLink(linkFor(panels[index]));
-    history.replaceState(null, '', '#' + panels[index].id);
-  }, { passive: true });
 
   // First load: elements rise into place.
   const startAt = panels.findIndex(panel => '#' + panel.id === location.hash);

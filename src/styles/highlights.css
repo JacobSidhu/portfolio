@@ -1,0 +1,76 @@
+/* ---------- home highlights strip ---------- */
+/* Fills the empty space under the ribbon on tall desktop screens. Hidden everywhere else.
+   A small label, three glass cards in the same style as the hero stats, then a solid call-to-action button. */
+.highlights{display:none;align-items:center;gap:22px;margin:0 0 40px}
+@media (min-width:1181px) and (min-height:950px){
+  .highlights{display:flex}
+}
+
+/* label: icon over two short lines, with a green rule leading into the cards */
+.hl-title{
+  display:flex;align-items:center;gap:12px;flex:none;padding-right:22px;border-right:2px solid rgba(53,224,92,.45);
+  font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--green);line-height:1.3;
+}
+.hl-title svg{width:30px;height:30px;flex:none}
+
+.hl-list{display:flex;flex:1;align-items:stretch;gap:16px;list-style:none;min-width:0}
+.hl-list li{display:flex;flex:1;min-width:0}
+/* The label and each card slide in from the left on their own, 80ms apart, with a light stretch and one
+   small overshoot. --i comes from pages.js; subtracting 6 starts the strip alongside the stats cards
+   instead of waiting for everything above it. */
+.is-active .hl-title.reveal,.is-active .hl-list > li.reveal{
+  transform-origin:left center;
+  animation:hl-in .7s cubic-bezier(.22,1,.36,1) max(0ms, calc((var(--i,0) - 6) * 80ms)) backwards;
+}
+@keyframes hl-in{
+  0%{opacity:0;transform:translateX(-40px) scaleX(1.04)}
+  65%{opacity:1;transform:translateX(4px) scaleX(.99)}
+  100%{transform:none}
+}
+.hl-item{
+  display:flex;align-items:center;gap:14px;width:100%;padding:14px 18px;border-radius:16px;
+  border:1px solid var(--line);background:var(--card);backdrop-filter:blur(6px);
+  color:inherit;text-decoration:none;transition:border-color .2s, transform .2s, box-shadow .2s;
+}
+.hl-item:hover{border-color:rgba(53,224,92,.6);transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(53,224,92,.6)}
+.hl-icon{
+  flex:none;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;
+  background:rgba(53,224,92,.08);border:1px solid rgba(53,224,92,.4);
+}
+.hl-item strong,.hl-item small{white-space:nowrap}
+.hl-item strong{display:block;font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:16px;line-height:1.25}
+.hl-item small{display:block;margin-top:3px;color:#c3cec9;font-size:13.5px}
+
+/* certification cards show the real badge instead of an icon tile */
+.hl-badge{width:50px;height:50px;border:0;background:none;border-radius:0}
+.hl-badge img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+
+/* "Open to work": an availability button with a pulsing status dot and an arrow that slides on hover */
+.hl-list li.hl-cta-li{flex:none}
+.hl-cta{
+  gap:14px;padding:14px 20px;border:1.5px solid rgba(53,224,92,.7);
+  background:linear-gradient(135deg,rgba(53,224,92,.18),rgba(53,224,92,.04));
+  box-shadow:inset 0 0 22px rgba(53,224,92,.12), 0 10px 28px -14px rgba(53,224,92,.6);
+}
+.hl-cta:hover{border-color:var(--green);background:linear-gradient(135deg,rgba(53,224,92,.28),rgba(53,224,92,.08))}
+.hl-cta strong{color:var(--green)}
+.hl-pulse{position:relative;flex:none;width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+.hl-pulse::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--green);animation:hl-pulse 1.8s ease-out infinite}
+@keyframes hl-pulse{to{transform:scale(2.8);opacity:0}}
+.hl-arrow{flex:none;color:var(--green);transition:transform .2s}
+.hl-cta:hover .hl-arrow{transform:translateX(4px)}
+
+/* narrower desktops: tighten so the label, three cards and the button fit on one row */
+@media (max-width:1500px){
+  .highlights{gap:16px}
+  .hl-title{padding-right:16px;font-size:12px;letter-spacing:2px}
+  .hl-title svg{width:26px;height:26px}
+  .hl-list{gap:12px}
+  .hl-item{gap:10px;padding:12px 14px}
+  .hl-icon{width:38px;height:38px;border-radius:10px}
+  .hl-badge{width:44px;height:44px;border-radius:0}
+  .hl-item strong{font-size:14.5px}
+  .hl-item small{font-size:12.5px}
+  .hl-cta{gap:12px;padding:12px 16px}
+}
