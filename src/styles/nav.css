@@ -1,4 +1,6 @@
 /* ---------- nav ---------- */
+/* The header sits above the page panels so the mobile menu opens over them and stays clickable. */
+.site-header{z-index:20}
 nav{
   display:flex;align-items:center;justify-content:space-between;gap:24px;
   padding:18px 0 16px;border-bottom:1px solid var(--line);
