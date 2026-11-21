@@ -27,7 +27,7 @@ on:
       - main
 
 concurrency:
-  group: development-CD
+  group: ${{ inputs.environment || 'dev' }}-CD
   cancel-in-progress: false
 
 permissions:
