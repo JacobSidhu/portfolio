@@ -65,5 +65,5 @@ variable "enable_custom_domain" {
 variable "portfolio_domain_name" {
   description = "Hostname for the prod site."
   type        = string
-  default     = "jacobsidhu.com"
+  default     = "www.jacobsidhu.com"
 }
