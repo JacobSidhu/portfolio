@@ -1,13 +1,23 @@
 /* Loaded last so these override the section styles above. */
 
-@media (prefers-reduced-motion:reduce){.ribbon-track,.frame-path,.is-active .reveal,.is-leaving .reveal,.hl-pulse::after,.is-active .hl-title.reveal,.is-active .hl-list > li.reveal{animation:none}.page.is-leaving{display:none}}
+@media (prefers-reduced-motion:reduce){.ribbon-track,.frame-path,.is-active .reveal,.is-leaving .reveal,.is-active .chips li,.is-active .logos li{animation:none}.page.is-leaving{display:none}}
 
 /* ---------- responsive ---------- */
+/* Skills: below this width the small cards get too narrow beside the large ones, so large cards take a full row. */
+@media (max-width:1320px){
+  .skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .skill-card.feature{grid-column:1 / -1}
+}
+/* Skills core stack: put the logo list on its own row once it no longer fits beside the title. */
+@media (max-width:1560px){
+  .core-stack{flex-wrap:wrap;row-gap:18px}
+  .core-list{flex-basis:100%;justify-content:flex-start}
+  .core-list li:first-child{padding-left:0}
+}
 @media (max-width:1180px){
   .hero{grid-template-columns:1fr 1fr}
   .social-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stats{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,1fr);margin-top:0}
   .stat{padding:16px 18px;gap:16px}
   .stat-icon{width:44px;height:44px}
@@ -34,6 +44,11 @@
   .social-grid{grid-template-columns:1fr}
   .project-grid{grid-template-columns:1fr}
   .skill-grid{grid-template-columns:1fr}
+  .skill-card.feature{padding:24px 22px}
+  .skills-head::after{display:none}
+  .core-stack{padding:20px 22px}
+  .core-text{flex-basis:100%;padding-left:0;border-left:0}
+  .core-list{gap:14px 0}
   .skills{padding-bottom:56px}
   .projects{padding-bottom:56px}
   .photo{max-width:440px;margin:30px auto 0;width:100%}
